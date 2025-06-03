@@ -36,7 +36,7 @@ export const loginUser = async (phone_number: string, password: string) => {
 // ------------------------
 
 export const fetchDashboard = async () => {
-  const response = await api.get("/dairy/dashboard/");
+  const response = await api.get("/posts/dashboard/");
   return response.data;
 };
 
@@ -59,17 +59,17 @@ export const fetchAdminPanel = async () => {
 // ------------------------
 
 export const fetchCustomers = async () => {
-  const response = await api.get("/dairy/customers/");
+  const response = await api.get("/posts/customers/");
   return response.data;
 };
 
 export const fetchCustomer = async (enc_id: string) => {
-  const response = await api.get(`/dairy/customers/${enc_id}`);
+  const response = await api.get(`/posts/customers/${enc_id}`);
   return response.data;
 };
 
 export const createCustomers = async (payload: Record<string, any>) => {
-  const response = await api.post("/dairy/add_customer/", payload);
+  const response = await api.post("/posts/add_customer/", payload);
   return response.data;
 };
 
@@ -77,12 +77,12 @@ export const editCustomers = async (
   enc_id: string,
   payload: Record<string, any>
 ) => {
-  const response = await api.patch(`/dairy/customers/${enc_id}/`, payload);
+  const response = await api.patch(`/posts/customers/${enc_id}/`, payload);
   return response.data;
 };
 
 export const deleteCustomers = async (enc_id: string) => {
-  const response = await api.delete(`/dairy/customers/${enc_id}/`);
+  const response = await api.delete(`/posts/customers/${enc_id}/`);
   return response.data;
 };
 
@@ -91,12 +91,12 @@ export const deleteCustomers = async (enc_id: string) => {
 // ------------------------
 
 export const fetchStates = async () => {
-  const response = await api.get("/dairy/states/");
+  const response = await api.get("/posts/states/");
   return response.data;
 };
 
 export const fetchCities = async () => {
-  const response = await api.post("/dairy/cities/");
+  const response = await api.post("/posts/cities/");
   return response.data;
 };
 
@@ -105,12 +105,12 @@ export const fetchCities = async () => {
 // ------------------------
 
 export const fetchSales = async (payload: Record<string, any>) => {
-  const response = await api.post("/dairy/milk-sales/", payload);
+  const response = await api.post("/posts/milk-sales/", payload);
   return response.data;
 };
 
 export const milkSold = async (payload: Record<string, any>) => {
-  const response = await api.post("/dairy/milk-sale/", payload);
+  const response = await api.post("/posts/milk-sale/", payload);
   return response.data;
 };
 

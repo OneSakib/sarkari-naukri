@@ -36,7 +36,7 @@ Thumbs.db
 
 accounts/migrations/
 accounts/__pycache__/
-dairy/__pycache__/
-dairy/migrations/
+posts/__pycache__/
+posts/migrations/
 superadmin/__pycache__/
 superadmin/migrations/
