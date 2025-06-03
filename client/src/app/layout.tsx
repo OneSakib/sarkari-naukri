@@ -3,7 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '@fortawesome/fontawesome-free/css/all.min.css'
 import "./globals.css";
-
+import Header from '@/components/Header'
+import Footer from '@/components/Footer'
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -26,8 +27,25 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <link rel="stylesheet" href="assets/css/bootstrap.min.css" type="text/css" />
+      <link rel="stylesheet" href="assets/css/jasny-bootstrap.min.css" type="text/css" />
+      <link rel="stylesheet" href="assets/css/bootstrap-select.min.css" type="text/css" />
+      <link rel="stylesheet" href="assets/css/material-kit.css" type="text/css" />
+      <link rel="stylesheet" href="assets/fonts/font-awesome.min.css" type="text/css" />
+      <link rel="stylesheet" href="assets/fonts/themify-icons.css" />
+
+      <link rel="stylesheet" href="assets/extras/animate.css" type="text/css" />
+      <link rel="stylesheet" href="assets/extras/owl.carousel.css" type="text/css" />
+      <link rel="stylesheet" href="assets/extras/owl.theme.css" type="text/css" />
+      <link rel="stylesheet" href="assets/extras/settings.css" type="text/css" />
+      <link rel="stylesheet" href="assets/css/slicknav.css" type="text/css" />
+      <link rel="stylesheet" href="assets/css/main.css" type="text/css" />
+      <link rel="stylesheet" href="assets/css/responsive.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="assets/css/colors/red.css" media="screen" />
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        {children}
+        <Header />
+        <main>{children}</main>
+        <Footer />
       </body>
     </html>
   );
