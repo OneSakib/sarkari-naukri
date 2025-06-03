@@ -33,7 +33,6 @@ export default function RootLayout({
       <link rel="stylesheet" href="assets/css/material-kit.css" type="text/css" />
       <link rel="stylesheet" href="assets/fonts/font-awesome.min.css" type="text/css" />
       <link rel="stylesheet" href="assets/fonts/themify-icons.css" />
-
       <link rel="stylesheet" href="assets/extras/animate.css" type="text/css" />
       <link rel="stylesheet" href="assets/extras/owl.carousel.css" type="text/css" />
       <link rel="stylesheet" href="assets/extras/owl.theme.css" type="text/css" />
