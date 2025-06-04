@@ -55,62 +55,82 @@ export const fetchAdminPanel = async () => {
 };
 
 // ------------------------
-// Customers
+// Home Page
 // ------------------------
 
-export const fetchCustomers = async () => {
-  const response = await api.get("/posts/customers/");
+export const fetchTopbar = async () => {
+  const response = await api.get("/posts/top-bar/");
   return response.data;
 };
-
-export const fetchCustomer = async (enc_id: string) => {
-  const response = await api.get(`/posts/customers/${enc_id}`);
+export const fetchLatestJobs = async () => {
+  const response = await api.get("/posts/latest-jobs/");
   return response.data;
 };
-
-export const createCustomers = async (payload: Record<string, any>) => {
-  const response = await api.post("/posts/add_customer/", payload);
+export const fetchResults = async () => {
+  const response = await api.get("/posts/results/");
   return response.data;
 };
-
-export const editCustomers = async (
-  enc_id: string,
-  payload: Record<string, any>
-) => {
-  const response = await api.patch(`/posts/customers/${enc_id}/`, payload);
+export const fetchAdmitCards = async () => {
+  const response = await api.get("/posts/admit-cards/");
   return response.data;
 };
-
-export const deleteCustomers = async (enc_id: string) => {
-  const response = await api.delete(`/posts/customers/${enc_id}/`);
+export const fetchAnswerKeys = async () => {
+  const response = await api.get("/posts/answer-keys/");
   return response.data;
 };
-
+export const fetchSyllabys = async () => {
+  const response = await api.get("/posts/syllabus/");
+  return response.data;
+};
+export const fetchAdmission = async () => {
+  const response = await api.get("/posts/admission/");
+  return response.data;
+};
+export const fetchCertificateVerification = async () => {
+  const response = await api.get("/posts/certificate-verification/");
+  return response.data;
+};
+export const fetchImportants = async () => {
+  const response = await api.get("/posts/importants/");
+  return response.data;
+};
 // ------------------------
-// Location
+// Home Page Post APIS
 // ------------------------
-
-export const fetchStates = async () => {
-  const response = await api.get("/posts/states/");
+export const fetchTopbarP = async (payload: any) => {
+  const response = await api.post("/posts/top-bar/", payload);
   return response.data;
 };
-
-export const fetchCities = async () => {
-  const response = await api.post("/posts/cities/");
+export const fetchLatestJobsP = async (payload: any) => {
+  const response = await api.post("/posts/latest-jobs/", payload);
   return response.data;
 };
-
-// ------------------------
-// Sales
-// ------------------------
-
-export const fetchSales = async (payload: Record<string, any>) => {
-  const response = await api.post("/posts/milk-sales/", payload);
+export const fetchResultsP = async (payload: any) => {
+  const response = await api.post("/posts/results/", payload);
   return response.data;
 };
-
-export const milkSold = async (payload: Record<string, any>) => {
-  const response = await api.post("/posts/milk-sale/", payload);
+export const fetchAdmitCardsP = async (payload: any) => {
+  const response = await api.post("/posts/admit-cards/", payload);
+  return response.data;
+};
+export const fetchAnswerKeysP = async (payload: any) => {
+  const response = await api.post("/posts/answer-keys/", payload);
+  return response.data;
+};
+export const fetchSyllabysP = async (payload: any) => {
+  const response = await api.post("/posts/syllabus/", payload);
+  return response.data;
+};
+export const fetchAdmissionP = async (payload: any) => {
+  const response = await api.post("/posts/admission/", payload);
+  return response.data;
+};
+export const fetchCertificateVerificationP = async (payload: any) => {
+  const response = await api.post("/posts/certificate-verification/", payload);
+  return response.data;
+};
+export const fetchImportantsP = async (payload: any) => {
+  const response = await api.post("/posts/importants/", payload);
   return response.data;
 };
 
