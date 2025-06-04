@@ -3,73 +3,17 @@
 {% block content %}
   <div class="body-wrapper-inner">
     <div class="container-fluid">
-      <h4>Manage Rates</h4>
+      <h4>Edit TopBar</h4>
       <form method="post">
         {% csrf_token %}
         <div class="row">
           <div class="col-12 col-lg-6 mb-3">
-            <label for="title_1" class="form-input">Title 1</label>
-            <input type="text" name="title_1" id="title_1" class="form-control" value="{{ form.title_1.value|default_if_none:'' }}" />
+            <label for="title" class="form-input">Title</label>
+            <input type="text" name="title" id="title" class="form-control" value="{{ form.title.value|default_if_none:'' }}" />
           </div>
           <div class="col-12 col-lg-6 mb-3">
-            <label for="link_1" class="form-input">Link 1</label>
-            <input type="url" name="link_1" id="link_1" class="form-control" value="{{ form.link_1.value|default_if_none:'' }}" />
-          </div>
-          <div class="col-12 col-lg-6 mb-3">
-            <label for="title_2" class="form-input">Title 2</label>
-            <input type="text" name="title_2" id="title_2" class="form-control" value="{{ form.title_2.value|default_if_none:'' }}" />
-          </div>
-          <div class="col-12 col-lg-6 mb-3">
-            <label for="link_2" class="form-input">Link 2</label>
-            <input type="url" name="link_2" id="link_2" class="form-control" value="{{ form.link_2.value|default_if_none:'' }}" />
-          </div>
-          <div class="col-12 col-lg-6 mb-3">
-            <label for="title_3" class="form-input">Title 3</label>
-            <input type="text" name="title_3" id="title_3" class="form-control" value="{{ form.title_3.value|default_if_none:'' }}" />
-          </div>
-          <div class="col-12 col-lg-6 mb-3">
-            <label for="link_3" class="form-input">Link 3</label>
-            <input type="url" name="link_3" id="link_3" class="form-control" value="{{ form.link_3.value|default_if_none:'' }}" />
-          </div>
-          <div class="col-12 col-lg-6 mb-3">
-            <label for="title_4" class="form-input">Title 4</label>
-            <input type="text" name="title_4" id="title_4" class="form-control" value="{{ form.title_4.value|default_if_none:'' }}" />
-          </div>
-          <div class="col-12 col-lg-6 mb-3">
-            <label for="link_4" class="form-input">Link 4</label>
-            <input type="url" name="link_4" id="link_4" class="form-control" value="{{ form.link_4.value|default_if_none:'' }}" />
-          </div>
-          <div class="col-12 col-lg-6 mb-3">
-            <label for="title_5" class="form-input">Title 5</label>
-            <input type="text" name="title_5" id="title_5" class="form-control" value="{{ form.title_5.value|default_if_none:'' }}" />
-          </div>
-          <div class="col-12 col-lg-6 mb-3">
-            <label for="link_5" class="form-input">Link 5</label>
-            <input type="url" name="link_5" id="link_1" class="form-control" value="{{ form.link_5.value|default_if_none:'' }}" />
-          </div>
-          <div class="col-12 col-lg-6 mb-3">
-            <label for="title_6" class="form-input">Title 6</label>
-            <input type="text" name="title_6" id="title_6" class="form-control" value="{{ form.title_6.value|default_if_none:'' }}" />
-          </div>
-          <div class="col-12 col-lg-6 mb-3">
-            <label for="link_6" class="form-input">Link 6</label>
-            <input type="url" name="link_6" id="link_6" class="form-control" value="{{ form.link_6.value|default_if_none:'' }}" />
-          </div>
-          <div class="col-12 col-lg-6 mb-3">
-            <label for="title_7" class="form-input">Title 7</label>
-            <input type="text" name="title_7" id="title_7" class="form-control" value="{{ form.title_7.value|default_if_none:'' }}" />
-          </div>
-          <div class="col-12 col-lg-6 mb-3">
-            <label for="link_7" class="form-input">Link 7</label>
-            <input type="url" name="link_7" id="link_7" class="form-control" value="{{ form.link_7.value|default_if_none:'' }}" />
-          </div>
-          <div class="col-12 col-lg-6 mb-3">
-            <label for="title_8" class="form-input">Title 8</label>
-            <input type="text" name="title_8" id="title_8" class="form-control" value="{{ form.title_8.value|default_if_none:'' }}" />
-          </div>
-          <div class="col-12 col-lg-6 mb-3">
-            <label for="link_8" class="form-input">Link 8</label>
-            <input type="url" name="link_8" id="link_8" class="form-control" value="{{ form.link_8.value|default_if_none:'' }}" />
+            <label for="link" class="form-input">Link</label>
+            <input type="url" name="link" id="link" class="form-control" value="{{ form.link.value|default_if_none:'' }}" />
           </div>
           <div class="col-6 offset-6">
             <button class="btn btn-primary">Submit</button>

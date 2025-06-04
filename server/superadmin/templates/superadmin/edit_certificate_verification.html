@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+  <div class="body-wrapper-inner">
+    <div class="container-fluid">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h4>Edit Certificate Verification</h4>
+        <a href="{% url 'superadmin:manage_certificate_verification' %}" class="btn btn-primary"><i class="fa-solid fa-arrow-left me-2"></i>Back</a>
+      </div>
+      <div class="mt-5">
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="category" value="certificate_verification" />
+          <div class="row">
+            {% if form.non_field_errors %}
+              <div class="alert alert-danger">{{ form.non_field_errors }}</div>
+            {% endif %}
+            <div class="col-12 col-lg-6 mb-3">
+              <label for="title" class="form-label">Title</label>
+              <input type="text" name="title" id="title" class="form-control" value="{{ form.title.value|default_if_none:'' }}" />
+              {% for error in form.title.errors %}
+                <div class="invalid-feedback">{{ error }}</div>
+              {% endfor %}
+            </div>
+            <div class="col-12 col-lg-6 mb-3">
+              <label for="link" class="form-label">Link</label>
+              <input type="url" name="link" id="link" class="form-control" value="{{ form.link.value|default_if_none:'' }}" />
+              {% for error in form.link.errors %}
+                <div class="invalid-feedback">{{ error }}</div>
+              {% endfor %}
+            </div>
+            <div class="col-12 col-lg-1">
+              <button class="btn btn-primary">Submit</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

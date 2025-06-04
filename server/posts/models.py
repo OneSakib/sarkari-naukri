@@ -4,24 +4,30 @@ from .base_models import BaseModel
 
 
 class TopBar(BaseModel):
-    title_1 = models.CharField(max_length=100, null=True, blank=True)
-    link_1 = models.URLField(max_length=200, null=True, blank=True)
-    title_2 = models.CharField(max_length=100, null=True, blank=True)
-    link_2 = models.URLField(max_length=200, null=True, blank=True)
-    title_3 = models.CharField(max_length=100, null=True, blank=True)
-    link_3 = models.URLField(max_length=200, null=True, blank=True)
-    title_4 = models.CharField(max_length=100, null=True, blank=True)
-    link_4 = models.URLField(max_length=200, null=True, blank=True)
-    title_5 = models.CharField(max_length=100, null=True, blank=True)
-    link_5 = models.URLField(max_length=200, null=True, blank=True)
-    title_6 = models.CharField(max_length=100, null=True, blank=True)
-    link_6 = models.URLField(max_length=200, null=True, blank=True)
-    title_7 = models.CharField(max_length=100, null=True, blank=True)
-    link_7 = models.URLField(max_length=200, null=True, blank=True)
-    title_8 = models.CharField(max_length=100, null=True, blank=True)
-    link_8 = models.URLField(max_length=200, null=True, blank=True)
+    title = models.CharField(max_length=100, null=True, blank=True)
+    link = models.URLField(max_length=200, null=True, blank=True)
 
     class Meta:
         verbose_name = "TopBar"
         verbose_name_plural = "TopBars"
         db_table = 'top_bar'
+
+
+class Posts(BaseModel):
+    CATEGORIES = [
+        ('results', 'Results'),
+        ('admit_cards', 'Admit Cards'),
+        ('latest_jobs', 'Latest Jobs'),
+        ('answer_keys', 'Answer Keys'),
+        ('syllabus', 'Syllabus'),
+        ('admission', 'Admission'),
+    ]
+    title = models.CharField(max_length=100, null=True, blank=True)
+    link = models.URLField(max_length=200, null=True, blank=True)
+    category = models.CharField(
+        choices=CATEGORIES, max_length=100, default='latest_jobs')
+
+    class Meta:
+        verbose_name = "Posts"
+        verbose_name_plural = "Posts"
+        db_table = 'posts'

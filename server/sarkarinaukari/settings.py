@@ -107,7 +107,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
 
@@ -162,3 +162,7 @@ SIMPLE_JWT = {
     'ROTATE_REFRESH_TOKENS': False,
     'BLACKLIST_AFTER_ROTATION': False,
 }
+
+LOGIN_URL = 'superadmin:login'
+LOGIN_REDIRECT_URL = 'superadmin:dashboard'
+LOGOUT_REDIRECT_URL = 'superadmin:login'
