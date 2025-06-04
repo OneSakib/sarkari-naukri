@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     "corsheaders",
     'superadmin',
     'accounts',
+    'posts',
 ]
 
 MIDDLEWARE = [
