@@ -61,32 +61,33 @@ class AddTopBarView(View):
         context = {
             'form': form
         }
-        return render(request, 'superadmin/add_states.html', context)
+        return render(request, 'superadmin/add_topbar.html', context)
 
     def post(self, request):
         form = TopBarForm(data=request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, 'State Added successful!')
-            return redirect(reverse_lazy('superadmin:manage_states'))
+            messages.success(request, 'TopBar Added successful!')
+            return redirect(reverse_lazy('superadmin:manage_topbar'))
         context = {
             'form': form
         }
-        return render(request, 'superadmin/add_states.html', context)
+        return render(request, 'superadmin/add_topbar.html', context)
 
 
 @method_decorator(superuser_required, name='dispatch')
 class EditTopBar(View):
-    def get(self, request):
-        instance = TopBar.objects.first()
+    def get(self, request, enc_id):
+        instance = TopBar.objects.get(enc_id=enc_id)
         form = TopBarForm(instance=instance)
         context = {
             'form': form
         }
         return render(request, 'superadmin/edit_topbar.html', context)
 
-    def post(self, request):
-        form = TopBarForm(data=request.POST)
+    def post(self, request, enc_id):
+        instance = TopBar.objects.get(enc_id=enc_id)
+        form = TopBarForm(data=request.POST, instance=instance)
         if form.is_valid():
             form.save()
             return redirect(reverse_lazy('superadmin:manage_topbar'))
@@ -100,8 +101,8 @@ class EditTopBar(View):
 class DeleteTopbarView(View):
     def get(self, request, enc_id):
         TopBar.objects.filter(enc_id=enc_id).delete()
-        messages.success(request, 'State Deleted successful!')
-        return redirect(reverse_lazy('superadmin:manage_states'))
+        messages.success(request, 'TopBar Deleted successful!')
+        return redirect(reverse_lazy('superadmin:manage_topbar'))
 
 # Results
 
@@ -130,7 +131,7 @@ class AddResultsView(View):
         form = PostsForm(data=request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, 'State Added successful!')
+            messages.success(request, 'Results Added successful!')
             return redirect(reverse_lazy('superadmin:manage_results'))
         context = {
             'form': form
@@ -153,7 +154,7 @@ class EditResultsView(View):
         form = PostsForm(instance=instance, data=request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, 'State Updated successful!')
+            messages.success(request, 'Results Updated successful!')
             return redirect(reverse_lazy('superadmin:manage_results'))
         context = {
             'form': form
@@ -165,7 +166,7 @@ class EditResultsView(View):
 class DeleteResultsView(View):
     def get(self, request, enc_id):
         Posts.objects.filter(enc_id=enc_id).delete()
-        messages.success(request, 'State Deleted successful!')
+        messages.success(request, 'Results Deleted successful!')
         return redirect(reverse_lazy('superadmin:manage_results'))
 
 # Admit Cards
@@ -195,7 +196,7 @@ class AddAdmitCardsView(View):
         form = PostsForm(data=request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, 'State Added successful!')
+            messages.success(request, 'Admit Cards Added successful!')
             return redirect(reverse_lazy('superadmin:manage_admit_cards'))
         context = {
             'form': form
@@ -218,7 +219,7 @@ class EditAdmitCardsView(View):
         form = PostsForm(instance=instance, data=request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, 'State Updated successful!')
+            messages.success(request, 'Admit Cards Updated successful!')
             return redirect(reverse_lazy('superadmin:manage_admit_cards'))
         context = {
             'form': form
@@ -230,7 +231,7 @@ class EditAdmitCardsView(View):
 class DeleteAdmitCardsView(View):
     def get(self, request, enc_id):
         Posts.objects.filter(enc_id=enc_id).delete()
-        messages.success(request, 'State Deleted successful!')
+        messages.success(request, 'Admit Cards Deleted successful!')
         return redirect(reverse_lazy('superadmin:manage_admit_cards'))
 # Latest Jobs
 
@@ -259,7 +260,7 @@ class AddLatestJobsView(View):
         form = PostsForm(data=request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, 'State Added successful!')
+            messages.success(request, 'Latest Jobs Added successful!')
             return redirect(reverse_lazy('superadmin:manage_latest_jobs'))
         context = {
             'form': form
@@ -282,7 +283,7 @@ class EditLatestJobsView(View):
         form = PostsForm(instance=instance, data=request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, 'State Updated successful!')
+            messages.success(request, 'Latest Jobs Updated successful!')
             return redirect(reverse_lazy('superadmin:manage_latest_jobs'))
         context = {
             'form': form
@@ -294,7 +295,7 @@ class EditLatestJobsView(View):
 class DeleteLatestJobsView(View):
     def get(self, request, enc_id):
         Posts.objects.filter(enc_id=enc_id).delete()
-        messages.success(request, 'State Deleted successful!')
+        messages.success(request, 'Latest Jobs Deleted successful!')
         return redirect(reverse_lazy('superadmin:manage_latest_jobs'))
 
 
@@ -325,7 +326,7 @@ class AddAnswerKeysView(View):
         form = PostsForm(data=request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, 'State Added successful!')
+            messages.success(request, 'Answer Keys Added successful!')
             return redirect(reverse_lazy('superadmin:manage_answer_keys'))
         context = {
             'form': form
@@ -348,7 +349,7 @@ class EditAnswerKeysView(View):
         form = PostsForm(instance=instance, data=request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, 'State Updated successful!')
+            messages.success(request, 'Answer Keys Updated successful!')
             return redirect(reverse_lazy('superadmin:manage_answer_keys'))
         context = {
             'form': form
@@ -360,7 +361,7 @@ class EditAnswerKeysView(View):
 class DeleteAnswerKeysView(View):
     def get(self, request, enc_id):
         Posts.objects.filter(enc_id=enc_id).delete()
-        messages.success(request, 'State Deleted successful!')
+        messages.success(request, 'Answer Keys Deleted successful!')
         return redirect(reverse_lazy('superadmin:manage_answer_keys'))
 
 # Syllabus
@@ -390,7 +391,7 @@ class AddSyllabusView(View):
         form = PostsForm(data=request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, 'State Added successful!')
+            messages.success(request, 'Syllabus Added successful!')
             return redirect(reverse_lazy('superadmin:manage_syllabus'))
         context = {
             'form': form
@@ -413,7 +414,7 @@ class EditSyllabusView(View):
         form = PostsForm(instance=instance, data=request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, 'State Updated successful!')
+            messages.success(request, 'Syllabus Updated successful!')
             return redirect(reverse_lazy('superadmin:manage_syllabus'))
         context = {
             'form': form
@@ -425,7 +426,7 @@ class EditSyllabusView(View):
 class DeleteSyllabusView(View):
     def get(self, request, enc_id):
         Posts.objects.filter(enc_id=enc_id).delete()
-        messages.success(request, 'State Deleted successful!')
+        messages.success(request, 'Syllabus Deleted successful!')
         return redirect(reverse_lazy('superadmin:manage_syllabus'))
 
 # Admission
@@ -455,7 +456,7 @@ class AddAdmissionView(View):
         form = PostsForm(data=request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, 'State Added successful!')
+            messages.success(request, 'Admission Added successful!')
             return redirect(reverse_lazy('superadmin:manage_admission'))
         context = {
             'form': form
@@ -478,7 +479,7 @@ class EditAdmissionView(View):
         form = PostsForm(instance=instance, data=request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, 'State Updated successful!')
+            messages.success(request, 'Admission Updated successful!')
             return redirect(reverse_lazy('superadmin:manage_admission'))
         context = {
             'form': form
@@ -490,7 +491,7 @@ class EditAdmissionView(View):
 class DeleteAdmissionView(View):
     def get(self, request, enc_id):
         Posts.objects.filter(enc_id=enc_id).delete()
-        messages.success(request, 'State Deleted successful!')
+        messages.success(request, 'Admission Deleted successful!')
         return redirect(reverse_lazy('superadmin:manage_admission'))
 # Admission
 
@@ -519,7 +520,8 @@ class AddCertificateVerificationView(View):
         form = PostsForm(data=request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, 'State Added successful!')
+            messages.success(
+                request, 'Certificate Verification Added successful!')
             return redirect(reverse_lazy('superadmin:manage_certificate_verification'))
         context = {
             'form': form
@@ -542,7 +544,8 @@ class EditCertificateVerificationView(View):
         form = PostsForm(instance=instance, data=request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, 'State Updated successful!')
+            messages.success(
+                request, 'Certificate Verification Updated successful!')
             return redirect(reverse_lazy('superadmin:manage_certificate_verification'))
         context = {
             'form': form
@@ -554,7 +557,8 @@ class EditCertificateVerificationView(View):
 class DeleteCertificateVerificationView(View):
     def get(self, request, enc_id):
         Posts.objects.filter(enc_id=enc_id).delete()
-        messages.success(request, 'State Deleted successful!')
+        messages.success(
+            request, 'Certificate Verification Deleted successful!')
         return redirect(reverse_lazy('superadmin:manage_certificate_verification'))
 # Importants
 
@@ -583,7 +587,7 @@ class AddImportantsView(View):
         form = PostsForm(data=request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, 'State Added successful!')
+            messages.success(request, 'Importants Added successful!')
             return redirect(reverse_lazy('superadmin:manage_importants'))
         context = {
             'form': form
@@ -606,7 +610,7 @@ class EditImportantsView(View):
         form = PostsForm(instance=instance, data=request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, 'State Updated successful!')
+            messages.success(request, 'Importants Updated successful!')
             return redirect(reverse_lazy('superadmin:manage_importants'))
         context = {
             'form': form
@@ -618,7 +622,7 @@ class EditImportantsView(View):
 class DeleteImportantsView(View):
     def get(self, request, enc_id):
         Posts.objects.filter(enc_id=enc_id).delete()
-        messages.success(request, 'State Deleted successful!')
+        messages.success(request, 'Importants Deleted successful!')
         return redirect(reverse_lazy('superadmin:manage_importants'))
 
 

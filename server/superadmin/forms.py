@@ -4,16 +4,16 @@ from accounts.models import User
 from posts.models import *
 
 
-class TopBarForm(forms.ModelForm):
-    class Meta:
-        fields = ['title', 'link']
-        model = TopBar
-
-
 class AdminPanelForm(forms.ModelForm):
     class Meta:
         fields = ['cow_milk_rate', 'buffalo_milk_rate', 'mix_milk_rate']
         model = AdminPanel
+
+
+class TopBarForm(forms.ModelForm):
+    class Meta:
+        fields = ['title', 'link']
+        model = TopBar
 
 
 class CustomUserCreationForm(forms.ModelForm):
@@ -66,5 +66,5 @@ class CustomUserChangeForm(forms.ModelForm):
 
 class PostsForm(forms.ModelForm):
     class Meta:
-        fields = ['title', 'link']
+        fields = ['title', 'link', 'category']
         model = Posts

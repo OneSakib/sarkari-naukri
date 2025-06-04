@@ -21,6 +21,8 @@ class Posts(BaseModel):
         ('answer_keys', 'Answer Keys'),
         ('syllabus', 'Syllabus'),
         ('admission', 'Admission'),
+        ('certificate_verification', 'Certificate Verification'),
+        ('importants', 'Importants'),
     ]
     title = models.CharField(max_length=100, null=True, blank=True)
     link = models.URLField(max_length=200, null=True, blank=True)
