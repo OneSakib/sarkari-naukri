@@ -1,5 +1,5 @@
 """
-ASGI config for sarkarinaukari project.
+ASGI config for sarkarinaukri project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.asgi import get_asgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'sarkarinaukari.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'sarkarinaukri.settings')
 
 application = get_asgi_application()

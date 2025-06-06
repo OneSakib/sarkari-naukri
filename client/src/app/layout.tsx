@@ -16,8 +16,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Sarkari Naukari",
-  description: "Sarkari Naukari is a platform for government job seekers to find and apply for various job opportunities in India.",
+  title: "Sarkari Naukri",
+  description: "Sarkari Naukri is a platform for government job seekers to find and apply for various job opportunities in India.",
 };
 
 export default function RootLayout({
