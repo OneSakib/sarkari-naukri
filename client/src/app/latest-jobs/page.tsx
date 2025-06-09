@@ -1,201 +1,528 @@
-export default function LatestJobsPage() {
+"use client"
+
+import { useState } from "react"
+import { Search, Filter, Calendar, MapPin, Building, Users, Clock, ChevronDown, Grid, List } from "lucide-react"
+import Link from "next/link"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+
+// Extended job data
+const allJobs = [
+    {
+        id: 1,
+        title: "SSC CGL 2024",
+        department: "Staff Selection Commission",
+        posts: "8000+",
+        lastDate: "2024-02-15",
+        category: "Central Govt",
+        location: "All India",
+        qualification: "Graduate",
+        experience: "Fresher",
+        salary: "₹25,000 - ₹75,000",
+        postDate: "2024-01-10",
+    },
+    {
+        id: 2,
+        title: "UPSC Civil Services 2024",
+        department: "Union Public Service Commission",
+        posts: "900+",
+        lastDate: "2024-02-20",
+        category: "Central Govt",
+        location: "All India",
+        qualification: "Graduate",
+        experience: "Fresher",
+        salary: "₹56,100 - ₹2,50,000",
+        postDate: "2024-01-08",
+    },
+    {
+        id: 3,
+        title: "Railway Group D",
+        department: "Indian Railways",
+        posts: "50000+",
+        lastDate: "2024-02-25",
+        category: "Railway",
+        location: "All India",
+        qualification: "10th Pass",
+        experience: "Fresher",
+        salary: "₹18,000 - ₹22,000",
+        postDate: "2024-01-12",
+    },
+    {
+        id: 4,
+        title: "Bank PO Recruitment",
+        department: "IBPS",
+        posts: "5000+",
+        lastDate: "2024-02-18",
+        category: "Banking",
+        location: "All India",
+        qualification: "Graduate",
+        experience: "Fresher",
+        salary: "₹23,700 - ₹42,020",
+        postDate: "2024-01-09",
+    },
+    {
+        id: 5,
+        title: "Police Constable",
+        department: "State Police",
+        posts: "10000+",
+        lastDate: "2024-02-22",
+        category: "Police",
+        location: "Uttar Pradesh",
+        qualification: "12th Pass",
+        experience: "Fresher",
+        salary: "₹21,700 - ₹69,100",
+        postDate: "2024-01-11",
+    },
+    {
+        id: 6,
+        title: "Teacher Recruitment",
+        department: "Education Department",
+        posts: "15000+",
+        lastDate: "2024-02-28",
+        category: "Teaching",
+        location: "Bihar",
+        qualification: "B.Ed",
+        experience: "Fresher",
+        salary: "₹31,000 - ₹1,00,000",
+        postDate: "2024-01-13",
+    },
+    {
+        id: 7,
+        title: "Forest Guard",
+        department: "Forest Department",
+        posts: "2000+",
+        lastDate: "2024-03-01",
+        category: "Forest",
+        location: "Madhya Pradesh",
+        qualification: "10th Pass",
+        experience: "Fresher",
+        salary: "₹19,500 - ₹62,000",
+        postDate: "2024-01-14",
+    },
+    {
+        id: 8,
+        title: "High Court Clerk",
+        department: "High Court",
+        posts: "500+",
+        lastDate: "2024-02-26",
+        category: "Court",
+        location: "Delhi",
+        qualification: "Graduate",
+        experience: "Fresher",
+        salary: "₹25,500 - ₹81,100",
+        postDate: "2024-01-15",
+    },
+    {
+        id: 9,
+        title: "Junior Engineer",
+        department: "PWD",
+        posts: "3000+",
+        lastDate: "2024-03-05",
+        category: "Engineering",
+        location: "Rajasthan",
+        qualification: "Diploma",
+        experience: "Fresher",
+        salary: "₹29,200 - ₹92,300",
+        postDate: "2024-01-16",
+    },
+    {
+        id: 10,
+        title: "Nursing Officer",
+        department: "Health Department",
+        posts: "1200+",
+        lastDate: "2024-02-24",
+        category: "Medical",
+        location: "Maharashtra",
+        qualification: "B.Sc Nursing",
+        experience: "Fresher",
+        salary: "₹25,500 - ₹81,100",
+        postDate: "2024-01-17",
+    },
+    {
+        id: 11,
+        title: "UPSSSC PET 2025",
+        department: "UPSSSC",
+        posts: "Multiple",
+        lastDate: "2024-06-17",
+        category: "State Govt",
+        location: "Uttar Pradesh",
+        qualification: "10th Pass",
+        experience: "Fresher",
+        salary: "₹15,000 - ₹35,000",
+        postDate: "2024-05-14",
+    },
+    {
+        id: 12,
+        title: "Army Recruitment Rally",
+        department: "Indian Army",
+        posts: "8000+",
+        lastDate: "2024-03-10",
+        category: "Defence",
+        location: "Punjab",
+        qualification: "10th/12th Pass",
+        experience: "Fresher",
+        salary: "₹17,300 - ₹56,100",
+        postDate: "2024-01-18",
+    },
+    {
+        id: 13,
+        title: "Postal Assistant",
+        department: "India Post",
+        posts: "4000+",
+        lastDate: "2024-03-15",
+        category: "Central Govt",
+        location: "All India",
+        qualification: "12th Pass",
+        experience: "Fresher",
+        salary: "₹25,500 - ₹81,100",
+        postDate: "2024-01-19",
+    },
+    {
+        id: 14,
+        title: "AIIMS Nursing Officer",
+        department: "AIIMS",
+        posts: "1800+",
+        lastDate: "2024-03-20",
+        category: "Medical",
+        location: "All India",
+        qualification: "B.Sc Nursing",
+        experience: "Fresher",
+        salary: "₹44,900 - ₹1,42,400",
+        postDate: "2024-01-20",
+    },
+    {
+        id: 15,
+        title: "Income Tax Inspector",
+        department: "CBDT",
+        posts: "3000+",
+        lastDate: "2024-03-25",
+        category: "Central Govt",
+        location: "All India",
+        qualification: "Graduate",
+        experience: "Fresher",
+        salary: "₹44,900 - ₹1,42,400",
+        postDate: "2024-01-21",
+    },
+]
+
+const categories = [
+    "All",
+    "Central Govt",
+    "State Govt",
+    "Railway",
+    "Banking",
+    "Police",
+    "Teaching",
+    "Medical",
+    "Defence",
+    "Engineering",
+    "Forest",
+    "Court",
+]
+const locations = [
+    "All",
+    "All India",
+    "Uttar Pradesh",
+    "Bihar",
+    "Maharashtra",
+    "Delhi",
+    "Rajasthan",
+    "Madhya Pradesh",
+    "Punjab",
+]
+const qualifications = ["All", "10th Pass", "12th Pass", "Graduate", "Post Graduate", "Diploma", "B.Ed", "B.Sc Nursing"]
+
+export default function JobsListPage() {
+    const [searchTerm, setSearchTerm] = useState("")
+    const [selectedCategory, setSelectedCategory] = useState("All")
+    const [selectedLocation, setSelectedLocation] = useState("All")
+    const [selectedQualification, setSelectedQualification] = useState("All")
+    const [sortBy, setSortBy] = useState("latest")
+    const [viewMode, setViewMode] = useState<"grid" | "list">("grid")
+    const [currentPage, setCurrentPage] = useState(1)
+    const [showFilters, setShowFilters] = useState(false)
+    const jobsPerPage = 12
+
+    // Filter jobs based on search and filters
+    const filteredJobs = allJobs.filter((job) => {
+        const matchesSearch =
+            job.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            job.department.toLowerCase().includes(searchTerm.toLowerCase())
+        const matchesCategory = selectedCategory === "All" || job.category === selectedCategory
+        const matchesLocation = selectedLocation === "All" || job.location === selectedLocation
+        const matchesQualification = selectedQualification === "All" || job.qualification === selectedQualification
+
+        return matchesSearch && matchesCategory && matchesLocation && matchesQualification
+    })
+
+    // Sort jobs
+    const sortedJobs = [...filteredJobs].sort((a, b) => {
+        switch (sortBy) {
+            case "latest":
+                return new Date(b.postDate).getTime() - new Date(a.postDate).getTime()
+            case "deadline":
+                return new Date(a.lastDate).getTime() - new Date(b.lastDate).getTime()
+            case "posts":
+                return Number.parseInt(b.posts.replace(/\D/g, "")) - Number.parseInt(a.posts.replace(/\D/g, ""))
+            default:
+                return 0
+        }
+    })
+
+    // Pagination
+    const totalPages = Math.ceil(sortedJobs.length / jobsPerPage)
+    const startIndex = (currentPage - 1) * jobsPerPage
+    const currentJobs = sortedJobs.slice(startIndex, startIndex + jobsPerPage)
+
+    const getDaysLeft = (lastDate: string) => {
+        const today = new Date()
+        const deadline = new Date(lastDate)
+        const diffTime = deadline.getTime() - today.getTime()
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
+        return diffDays
+    }
+
     return (
-        <>
-            <header className="header">
-                <div className="container">
-                    <div className="d-flex justify-content-between align-items-center">
-                        <div>
-                            <h1 className="h3 mb-2">
-                                <i className="fas fa-briefcase me-2"></i>
-                                Latest Government Jobs
-                            </h1>
-                            <nav aria-label="breadcrumb">
-                                <ol className="breadcrumb">
-                                    <li className="breadcrumb-item">
-                                        <a href="#">
-                                            <i className="fas fa-home me-1"></i>Home
-                                        </a>
-                                    </li>
-                                    <li className="breadcrumb-item active">Latest Jobs</li>
-                                </ol>
-                            </nav>
+        <div className="min-h-screen bg-gray-50">
+
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                {/* Breadcrumb */}
+                <nav className="flex mb-6 text-sm text-gray-600">
+                    <Link href="/" className="hover:text-blue-600">
+                        Home
+                    </Link>
+                    <span className="mx-2">/</span>
+                    <span className="text-gray-900">Latest Jobs</span>
+                </nav>
+
+                {/* Page Header */}
+                <div className="mb-8">
+                    <h1 className="text-3xl font-bold text-gray-900 mb-2">Latest Government Jobs</h1>
+                    <p className="text-gray-600">
+                        Find your dream government job from {allJobs.length}+ active job notifications
+                    </p>
+                </div>
+
+                {/* Search and Filters */}
+                <div className="bg-white rounded-lg shadow-sm border p-6 mb-6">
+                    {/* Search Bar */}
+                    <div className="flex flex-col md:flex-row gap-4 mb-4">
+                        <div className="flex-1 relative">
+                            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+                            <Input
+                                placeholder="Search jobs by title, department..."
+                                className="pl-10"
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                            />
                         </div>
-                        <div className="text-end">
-                            <div className="small">Last Updated</div>
-                            <div className="fw-bold" id="lastUpdated">Today, 3:45 PM</div>
+                        <Button variant="outline" onClick={() => setShowFilters(!showFilters)} className="md:w-auto">
+                            <Filter className="h-4 w-4 mr-2" />
+                            Filters
+                            <ChevronDown className={`h-4 w-4 ml-2 transition-transform ${showFilters ? "rotate-180" : ""}`} />
+                        </Button>
+                    </div>
+
+                    {/* Filters */}
+                    {showFilters && (
+                        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 pt-4 border-t">
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-2">Category</label>
+                                <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+                                    <SelectTrigger>
+                                        <SelectValue />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        {categories.map((category) => (
+                                            <SelectItem key={category} value={category}>
+                                                {category}
+                                            </SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
+                            </div>
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-2">Location</label>
+                                <Select value={selectedLocation} onValueChange={setSelectedLocation}>
+                                    <SelectTrigger>
+                                        <SelectValue />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        {locations.map((location) => (
+                                            <SelectItem key={location} value={location}>
+                                                {location}
+                                            </SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
+                            </div>
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-2">Qualification</label>
+                                <Select value={selectedQualification} onValueChange={setSelectedQualification}>
+                                    <SelectTrigger>
+                                        <SelectValue />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        {qualifications.map((qualification) => (
+                                            <SelectItem key={qualification} value={qualification}>
+                                                {qualification}
+                                            </SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
+                            </div>
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-2">Sort By</label>
+                                <Select value={sortBy} onValueChange={setSortBy}>
+                                    <SelectTrigger>
+                                        <SelectValue />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        <SelectItem value="latest">Latest First</SelectItem>
+                                        <SelectItem value="deadline">Deadline</SelectItem>
+                                        <SelectItem value="posts">Most Posts</SelectItem>
+                                    </SelectContent>
+                                </Select>
+                            </div>
                         </div>
+                    )}
+                </div>
+
+                {/* Results Header */}
+                <div className="flex justify-between items-center mb-6">
+                    <div className="text-gray-600">
+                        Showing {startIndex + 1}-{Math.min(startIndex + jobsPerPage, sortedJobs.length)} of {sortedJobs.length} jobs
+                    </div>
+                    <div className="flex items-center space-x-2">
+                        <Button variant={viewMode === "grid" ? "default" : "outline"} size="sm" onClick={() => setViewMode("grid")}>
+                            <Grid className="h-4 w-4" />
+                        </Button>
+                        <Button variant={viewMode === "list" ? "default" : "outline"} size="sm" onClick={() => setViewMode("list")}>
+                            <List className="h-4 w-4" />
+                        </Button>
                     </div>
                 </div>
-            </header>
-            <div className="container py-5">
 
-                <main className="container my-4">
-                    <section className="stats-section fade-in">
-                        <div className="row">
-                            <div className="col-md-3 col-sm-6">
-                                <div className="stat-card">
-                                    <div className="stat-icon" style={{ background: "linear-gradient(135deg, var(--primary-color), #3b82f6)" }}>
-                                        <i className="fas fa-briefcase"></i>
+                {/* Jobs Grid/List */}
+                <div
+                    className={
+                        viewMode === "grid" ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8" : "space-y-4 mb-8"
+                    }
+                >
+                    {currentJobs.map((job) => {
+                        const daysLeft = getDaysLeft(job.lastDate)
+                        return (
+                            <Card key={job.id} className={`hover:shadow-lg transition-shadow ${viewMode === "list" ? "flex" : ""}`}>
+                                <CardHeader className={`${viewMode === "list" ? "flex-1" : ""} pb-3`}>
+                                    <div className="flex justify-between items-start mb-2">
+                                        <Badge variant="secondary" className="text-xs">
+                                            {job.category}
+                                        </Badge>
+                                        <Badge
+                                            variant={daysLeft <= 7 ? "destructive" : daysLeft <= 15 ? "default" : "secondary"}
+                                            className="text-xs"
+                                        >
+                                            <Clock className="h-3 w-3 mr-1" />
+                                            {daysLeft > 0 ? `${daysLeft} days left` : "Expired"}
+                                        </Badge>
                                     </div>
-                                    <div className="stat-number" id="totalJobs">1,247</div>
-                                    <div className="stat-label">Total Active Jobs</div>
-                                </div>
-                            </div>
-                            <div className="col-md-3 col-sm-6">
-                                <div className="stat-card">
-                                    <div className="stat-icon" style={{ background: "linear-gradient(135deg, var(--success-color), #16a34a)" }}>
-                                        <i className="fas fa-calendar-plus"></i>
+                                    <CardTitle className="text-lg leading-tight">
+                                        <Link
+                                            href={`/jobs/${job.title.toLowerCase().replace(/\s+/g, "-")}`}
+                                            className="hover:text-blue-600"
+                                        >
+                                            {job.title}
+                                        </Link>
+                                    </CardTitle>
+                                    <CardDescription className="flex items-center">
+                                        <Building className="h-3 w-3 mr-1" />
+                                        {job.department}
+                                    </CardDescription>
+                                </CardHeader>
+                                <CardContent className={viewMode === "list" ? "flex-1" : ""}>
+                                    <div className="space-y-2 text-sm mb-4">
+                                        <div className="flex items-center justify-between">
+                                            <span className="text-gray-600 flex items-center">
+                                                <Users className="h-3 w-3 mr-1" />
+                                                Posts:
+                                            </span>
+                                            <span className="font-semibold text-green-600">{job.posts}</span>
+                                        </div>
+                                        <div className="flex items-center justify-between">
+                                            <span className="text-gray-600 flex items-center">
+                                                <MapPin className="h-3 w-3 mr-1" />
+                                                Location:
+                                            </span>
+                                            <span className="font-medium">{job.location}</span>
+                                        </div>
+                                        <div className="flex items-center justify-between">
+                                            <span className="text-gray-600 flex items-center">
+                                                <Calendar className="h-3 w-3 mr-1" />
+                                                Last Date:
+                                            </span>
+                                            <span className="font-semibold text-red-600">{job.lastDate}</span>
+                                        </div>
+                                        <div className="flex items-center justify-between">
+                                            <span className="text-gray-600">Qualification:</span>
+                                            <span className="font-medium">{job.qualification}</span>
+                                        </div>
+                                        <div className="flex items-center justify-between">
+                                            <span className="text-gray-600">Salary:</span>
+                                            <span className="font-medium text-blue-600">{job.salary}</span>
+                                        </div>
                                     </div>
-                                    <div className="stat-number" id="newJobs">89</div>
-                                    <div className="stat-label">New This Week</div>
-                                </div>
-                            </div>
-                            <div className="col-md-3 col-sm-6">
-                                <div className="stat-card">
-                                    <div className="stat-icon" style={{ background: "linear-gradient(135deg, var(--warning-color), #d97706)" }}>
-                                        <i className="fas fa-clock"></i>
+                                    <div className={`flex gap-2 ${viewMode === "list" ? "flex-col sm:flex-row" : ""}`}>
+                                        <Button size="sm" className="flex-1">
+                                            View Details
+                                        </Button>
+                                        <Button size="sm" variant="outline" className="flex-1">
+                                            Apply Now
+                                        </Button>
                                     </div>
-                                    <div className="stat-number" id="closingJobs">156</div>
-                                    <div className="stat-label">Closing Soon</div>
-                                </div>
-                            </div>
-                            <div className="col-md-3 col-sm-6">
-                                <div className="stat-card">
-                                    <div className="stat-icon" style={{ background: "linear-gradient(135deg, var(--accent-color), #059669)" }}>
-                                        <i className="fas fa-user-tie"></i>
-                                    </div>
-                                    <div className="stat-number" id="vacancies">45,678</div>
-                                    <div className="stat-label">Total Vacancies</div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
+                                </CardContent>
+                            </Card>
+                        )
+                    })}
+                </div>
 
-                    <section className="filter-section slide-in">
-                        <div className="filter-card">
-                            <div className="row g-3">
-                                <div className="col-md-4">
-                                    <label htmlFor="searchInput" className="form-label fw-semibold">
-                                        <i className="fas fa-search me-1"></i>Search Jobs
-                                    </label>
-                                    <input type="text" className="form-control search-input" id="searchInput"
-                                        placeholder="Search by job title, department..." />
-                                </div>
-                                <div className="col-md-2">
-                                    <label htmlFor="stateFilter" className="form-label fw-semibold">
-                                        <i className="fas fa-map-marker-alt me-1"></i>State
-                                    </label>
-                                    <select className="form-select search-input" id="stateFilter">
-                                        <option value="">All States</option>
-                                        <option value="Delhi">Delhi</option>
-                                        <option value="Maharashtra">Maharashtra</option>
-                                        <option value="Karnataka">Karnataka</option>
-                                        <option value="Uttar Pradesh">Uttar Pradesh</option>
-                                        <option value="Tamil Nadu">Tamil Nadu</option>
-                                        <option value="Gujarat">Gujarat</option>
-                                        <option value="Rajasthan">Rajasthan</option>
-                                        <option value="West Bengal">West Bengal</option>
-                                        <option value="Madhya Pradesh">Madhya Pradesh</option>
-                                        <option value="Punjab">Punjab</option>
-                                    </select>
-                                </div>
-                                <div className="col-md-2">
-                                    <label htmlFor="categoryFilter" className="form-label fw-semibold">
-                                        <i className="fas fa-tags me-1"></i>Category
-                                    </label>
-                                    <select className="form-select search-input" id="categoryFilter">
-                                        <option value="">All Categories</option>
-                                        <option value="Banking">Banking</option>
-                                        <option value="Railway">Railway</option>
-                                        <option value="SSC">SSC</option>
-                                        <option value="UPSC">UPSC</option>
-                                        <option value="Teaching">Teaching</option>
-                                        <option value="Police">Police</option>
-                                        <option value="Healthcare">Healthcare</option>
-                                        <option value="Defense">Defense</option>
-                                    </select>
-                                </div>
-                                <div className="col-md-2">
-                                    <label htmlFor="statusFilter" className="form-label fw-semibold">
-                                        <i className="fas fa-filter me-1"></i>Status
-                                    </label>
-                                    <select className="form-select search-input" id="statusFilter">
-                                        <option value="">All Status</option>
-                                        <option value="Active">Active</option>
-                                        <option value="Closing Soon">Closing Soon</option>
-                                        <option value="Closed">Closed</option>
-                                    </select>
-                                </div>
-                                <div className="col-md-2">
-                                    <label className="form-label fw-semibold text-white">.</label>
-                                    <div className="d-flex gap-2">
-                                        <button className="btn btn-primary btn-filter">
-                                            <i className="fas fa-search me-1"></i>Search
-                                        </button>
-                                        <button className="btn btn-outline-secondary btn-filter">
-                                            <i className="fas fa-times me-1"></i>Clear
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
+                {/* Pagination */}
+                {totalPages > 1 && (
+                    <div className="flex justify-center items-center space-x-2">
+                        <Button
+                            variant="outline"
+                            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                            disabled={currentPage === 1}
+                        >
+                            Previous
+                        </Button>
 
-                    <section className="jobs-table-container fade-in" id="jobsTableContainer">
-                        <div className="table-header">
-                            <div className="d-flex justify-content-between align-items-center">
-                                <h4 className="mb-0">
-                                    <i className="fas fa-list me-2"></i>
-                                    Latest Government Jobs
-                                    <span className="badge bg-primary ms-2" id="resultsCount">Showing 1-20 of 1,247</span>
-                                </h4>
-                                <div className="d-flex gap-2">
-                                    <select className="form-select form-select-sm" id="entriesPerPage" style={{ width: "auto" }}>
-                                        <option value="10">10 per page</option>
-                                        <option value="20" selected>20 per page</option>
-                                        <option value="50">50 per page</option>
-                                    </select>
-                                    <button className="btn btn-outline-primary btn-sm">
-                                        <i className="fas fa-sync-alt me-1"></i>Refresh
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
+                        {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+                            const pageNum = Math.max(1, Math.min(currentPage - 2 + i, totalPages - 4 + i))
+                            return (
+                                <Button
+                                    key={pageNum}
+                                    variant={currentPage === pageNum ? "default" : "outline"}
+                                    onClick={() => setCurrentPage(pageNum)}
+                                    className="w-10"
+                                >
+                                    {pageNum}
+                                </Button>
+                            )
+                        })}
 
-                        <div className="table-responsive">
-                            <table className="table jobs-table" id="jobsTable">
-                                <thead>
-                                    <tr>
-                                        <th style={{ width: '5%' }}>#</th>
-                                        <th style={{ width: '25%' }}>Job Title</th>
-                                        <th style={{ width: '15%' }}>Department</th>
-                                        <th style={{ width: '10%' }}>Vacancies</th>
-                                        <th style={{ width: '10%' }}>Location</th>
-                                        <th style={{ width: '10%' }}>Posted Date</th>
-                                        <th style={{ width: '10%' }}>Last Date</th>
-                                        <th style={{ width: '8%' }}>Status</th>
-                                        <th style={{ width: '12%' }}>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="jobsTableBody">
-                                </tbody>
-                            </table>
-                        </div>
-                    </section>
-                    <section className="pagination-container fade-in">
-                        <div className="d-flex justify-content-between align-items-center flex-wrap">
-                            <div className="page-info mb-2 mb-md-0">
-                                <span id="pageInfo">Showing 1-20 of 1,247 jobs</span>
-                            </div>
-                            <nav aria-label="Jobs pagination">
-                                <ul className="pagination" id="pagination">
-                                </ul>
-                            </nav>
-                        </div>
-                    </section>
-                </main>
-
+                        <Button
+                            variant="outline"
+                            onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+                            disabled={currentPage === totalPages}
+                        >
+                            Next
+                        </Button>
+                    </div>
+                )}
             </div>
-            </>
-    );
+        </div>
+    )
 }

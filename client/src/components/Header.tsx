@@ -1,48 +1,49 @@
-'use client';
-import Image from "next/image";
-import Link from "next/link";
-import { usePathname } from 'next/navigation';
-import logo from '../../public/logo.png'; // Adjust the path as necessary
-const Header: React.FC = () => {
-    const pathname = usePathname();
-    const navItems = [
-        { label: 'Home', href: '/' },
-        { label: 'Latest Jobs', href: '/latest-jobs' },
-        { label: 'Results', href: '/results' },
-        { label: 'Admit Cards', href: '/admit-cards' },
-        { label: 'Answer Key', href: '/answer-keys' },
-        { label: 'Admission', href: '/admission' },
-        { label: 'Syllabus', href: '/syllabus' },
-        { label: 'Certificate Verification', href: '/certificate-verification' },
-        { label: 'Others', href: '/importants' },
-    ];
+import { Button } from "./ui/button"
+import Link from "next/link"
+import ThemeModeToggle from "@/components/ThemeModeToggle"
+import Image from "next/image"
+export default function Header() {
+    const navLinks = [
+        { name: "Latest Jobs", href: "/latest-jobs" },
+        { name: "Admission", href: "/admissions" },
+        { name: "Results", href: "/results" },
+        { name: "Answer Keys", href: "/answer-keys" },
+        { name: "Syllabus", href: "/syllabus" },
+        { name: "Admit Cards", href: "/admit-cards" },
+        { name: "Certificate Verification", href: "/certificate-verification" },
+        { name: "Others", href: "/others" },
+    ]
+
     return (
-        <nav className="navbar navbar-expand-lg bg-light">
-            <div className="container-fluid">
-                <Link className="navbar-brand" href="/">
-                    <Image src={logo} width={50} height={50} />
-                </Link>
-                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span className="navbar-toggler-icon"></span>
-                </button>
-                <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                        {navItems.map((item) => (
-                            <li className="nav-item" key={item.href}>
-                                <Link
-                                    href={item.href}
-                                    className={`nav-link ${pathname === item.href ? 'active' : ''}`}
-                                    aria-current={pathname === item.href ? 'page' : undefined}
-                                >
-                                    {item.label}
-                                </Link>
-                            </li>
+        <header className="border-b bg-white/80 backdrop-blur-sm dark:bg-slate-900/80 sticky top-0 z-50">
+            <div className="container mx-auto px-4 py-4">
+                <div className="flex items-center justify-between">
+                    <Link href="/">
+                        <div className="flex items-center space-x-2">
+                            <div className="p-2 rounded-lg">
+                                <Image src="/logo.png" alt="Logo" width={40} height={40} className="h-10 w-10" />
+                            </div>
+                            <div>
+                                <h1 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                                    Sarkari Naukri
+                                </h1>
+                                <p className="text-xs text-muted-foreground">Your one-stop destination for government jobs.</p>
+                            </div>
+                        </div>
+                    </Link>
+                    <nav className="hidden md:flex items-center space-x-1">
+                        {navLinks.map((link) => (
+                            <Button key={link.name} variant="ghost" size="sm" asChild>
+                                <Link href={link.href}>{link.name}</Link>
+                            </Button>
                         ))}
-                    </ul>
+                    </nav>
+
+                    <div className="flex items-center space-x-4">
+                        <ThemeModeToggle />
+                    </div>
                 </div>
             </div>
-        </nav>
-    );
-};
-
-export default Header;
+        </header>
+    )
+}

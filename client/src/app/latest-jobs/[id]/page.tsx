@@ -1,261 +1,344 @@
-import Header from "@/components/post/Header";
+import {
+    Calendar,
+    Clock,
+    DollarSign,
+    FileText,
+    Users,
+    Download,
+    ExternalLink,
+    Bell,
+    AlertTriangle,
+    CheckCircle,
+} from "lucide-react"
+import Link from "next/link"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import { Alert, AlertDescription } from "@/components/ui/alert"
+import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table"
 
-interface ResultPageProps {
-    params: { id: string };
-}
-
-export default function ResultDetailPage({ params }: ResultPageProps) {
-    console.log("ResultDetailPage params:", params);
+export default function JobDetailPage() {
     return (
-        <>
-            <Header />
-            <div className="container">
-                <div className="main-container">
-                    <div className="header-section">
-                        <div className="row align-items-center">
-                            <div className="col-md-8">
-                                <h1 className="post-title animate__animated animate__fadeInLeft">
-                                    UPSSSC UP Preliminary Examination Test PET Advt No 01-Exam/2025
-                                </h1>
-                                <div
-                                    className="post-meta animate__animated animate__fadeInLeft animate__delay-1s"
-                                >
-                                    <span className="badge badge-custom bg-warning text-dark">
-                                        <i className="fas fa-calendar-alt me-2"></i>14 May 2025 | 10:32 AM
-                                    </span>
-                                    <span className="badge badge-custom bg-success">
-                                        <i className="fas fa-fire me-2"></i>Apply Online
-                                    </span>
-                                </div>
+        <div className="min-h-screen bg-gray-50">
+            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                {/* Breadcrumb */}
+                <nav className="flex mb-6 text-sm text-gray-600">
+                    <Link href="/" className="hover:text-blue-600">
+                        Home
+                    </Link>
+                    <span className="mx-2">/</span>
+                    <Link href="/jobs" className="hover:text-blue-600">
+                        Latest Jobs
+                    </Link>
+                    <span className="mx-2">/</span>
+                    <span className="text-gray-900">UPSSSC PET 2025</span>
+                </nav>
+
+                {/* Job Title Section */}
+                <div className="bg-white rounded-lg shadow-sm border p-6 mb-6">
+                    <div className="flex items-start justify-between mb-4">
+                        <div className="flex-1">
+                            <Badge className="mb-3 bg-green-100 text-green-800 hover:bg-green-100">Active Recruitment</Badge>
+                            <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
+                                UPSSSC UP Preliminary Examination Test PET Advt No 01-Exam/2025 Apply Online Form
+                            </h1>
+                            <div className="flex items-center text-gray-600 mb-4">
+                                <Clock className="h-4 w-4 mr-2" />
+                                <span>Post Date / Update: 14 May 2025 | 10:32 AM</span>
                             </div>
-                            <div className="col-md-4 text-end">
-                                <div className="icon-box bg-light text-primary">
-                                    <i className="fas fa-graduation-cap"></i>
-                                </div>
-                            </div>
+                        </div>
+                        <div className="ml-4">
+                            <Badge variant="destructive" className="text-sm">
+                                <AlertTriangle className="h-3 w-3 mr-1" />
+                                Closing Soon
+                            </Badge>
                         </div>
                     </div>
 
-                    <div className="container-fluid p-4">
-                        <div className="notification-banner">
-                            <div className="d-flex align-items-center">
-                                <i className="fas fa-bullhorn me-3 fs-4"></i>
-                                <div>
-                                    <strong>Latest Update:</strong> UPSSSC has released PET 2025
-                                    notification. Apply before the last date!
-                                </div>
-                            </div>
-                        </div>
+                    <Alert className="border-blue-200 bg-blue-50 mb-4">
+                        <Bell className="h-4 w-4 text-blue-600" />
+                        <AlertDescription className="text-blue-800">
+                            <span className="font-semibold">Short Information:</span> Uttar Pradesh Subordinate Service Selection
+                            Commission (UPSSSC) has released Preliminary Examination Test PET Advt No. 01-Exam/2025 Recruitment
+                            Notification. Those candidates who are interested in this UPSSSC Preliminary Examination Test PET 2025 can
+                            Apply Online from 14/05/2025 to 17/06/2025.
+                        </AlertDescription>
+                    </Alert>
 
-                        <div className="row">
-                            <div className="col-lg-8">
-                                <div className="card card-animated">
-                                    <div className="card-header bg-primary text-white">
-                                        <h5 className="mb-0">
-                                            <i className="fas fa-info-circle me-2"></i>Short Information
-                                        </h5>
-                                    </div>
-                                    <div className="card-body">
-                                        <p className="lead">
-                                            Uttar Pradesh Subordinate Service Selection Commission
-                                            (UPSSSC) has released Preliminary Examination Test PET Advt
-                                            No. 01-Exam/2025 Recruitment Notification. Those candidates
-                                            who are interested in this UPSSSC Preliminary Examination
-                                            Test PET 2025 can Apply Online from
-                                            <strong>14/05/2025 to 17/06/2025</strong>.
-                                        </p>
-                                    </div>
-                                </div>
+                    <div className="flex flex-wrap gap-3">
+                        <Button size="lg" className="bg-orange-500 hover:bg-orange-600">
+                            <ExternalLink className="h-4 w-4 mr-2" />
+                            Apply Online Now
+                        </Button>
+                        <Button variant="outline" size="lg">
+                            <Download className="h-4 w-4 mr-2" />
+                            Download Notification
+                        </Button>
+                        <Button variant="outline" size="lg">
+                            <FileText className="h-4 w-4 mr-2" />
+                            Download Syllabus
+                        </Button>
+                    </div>
+                </div>
 
-                                <div className="card card-animated">
-                                    <div className="card-header bg-info text-white">
-                                        <h5 className="mb-0">
-                                            <i className="fas fa-clock me-2"></i>Important Dates
-                                        </h5>
-                                    </div>
-                                    <div className="card-body important-dates">
-                                        <div className="timeline">
-                                            <div className="timeline-item">
-                                                <div
-                                                    className="d-flex justify-content-between align-items-center"
-                                                >
-                                                    <strong>Application Begin</strong>
-                                                    <span className="badge bg-success">14/05/2025</span>
-                                                </div>
-                                            </div>
-                                            <div className="timeline-item">
-                                                <div
-                                                    className="d-flex justify-content-between align-items-center"
-                                                >
-                                                    <strong>Last Date for Registration</strong>
-                                                    <span className="badge bg-danger">17/06/2025</span>
-                                                </div>
-                                            </div>
-                                            <div className="timeline-item">
-                                                <div
-                                                    className="d-flex justify-content-between align-items-center"
-                                                >
-                                                    <strong>Last Date for Fee Payment</strong>
-                                                    <span className="badge bg-danger">17/06/2025</span>
-                                                </div>
-                                            </div>
-                                            <div className="timeline-item">
-                                                <div
-                                                    className="d-flex justify-content-between align-items-center"
-                                                >
-                                                    <strong>Correction Last Date</strong>
-                                                    <span className="badge bg-warning text-dark"
-                                                    >24/06/2025</span                                                    >
-                                                </div>
-                                            </div>
-                                            <div className="timeline-item">
-                                                <div
-                                                    className="d-flex justify-content-between align-items-center"
-                                                >
-                                                    <strong>Exam Date</strong>
-                                                    <span className="badge bg-info">As per Schedule</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    {/* Main Content */}
+                    <div className="lg:col-span-2 space-y-6">
+                        {/* Important Dates */}
+                        <Card>
+                            <CardHeader>
+                                <CardTitle className="flex items-center">
+                                    <Calendar className="h-5 w-5 mr-2 text-blue-600" />
+                                    Important Dates
+                                </CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <Table>
+                                    <TableBody>
+                                        <TableRow>
+                                            <TableCell className="font-medium">Application Begin</TableCell>
+                                            <TableCell className="text-green-600 font-semibold">14/05/2025</TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell className="font-medium">Last Date for Registration</TableCell>
+                                            <TableCell className="text-red-600 font-semibold">17/06/2025</TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell className="font-medium">Last Date for Fee Payment</TableCell>
+                                            <TableCell className="text-red-600 font-semibold">17/06/2025</TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell className="font-medium">Correction Last Date</TableCell>
+                                            <TableCell className="text-orange-600 font-semibold">24/06/2025</TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell className="font-medium">Exam Date</TableCell>
+                                            <TableCell className="text-blue-600 font-semibold">As per Schedule</TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell className="font-medium">Admit Card Available</TableCell>
+                                            <TableCell className="text-purple-600 font-semibold">Before Exam</TableCell>
+                                        </TableRow>
+                                    </TableBody>
+                                </Table>
+                            </CardContent>
+                        </Card>
 
-                                <div className="card card-animated">
-                                    <div className="card-header bg-success text-white">
-                                        <h5 className="mb-0">
-                                            <i className="fas fa-clipboard-list me-2"></i>How to Fill UPSSSC
-                                            PET 2025 Online Form
-                                        </h5>
+                        {/* Application Fee */}
+                        <Card>
+                            <CardHeader>
+                                <CardTitle className="flex items-center">
+                                    <DollarSign className="h-5 w-5 mr-2 text-green-600" />
+                                    Application Fee
+                                </CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                                    <div className="bg-gray-50 p-4 rounded-lg text-center">
+                                        <div className="text-2xl font-bold text-gray-900">₹185</div>
+                                        <div className="text-sm text-gray-600">General / OBC</div>
                                     </div>
-                                    <div className="card-body">
-                                        <div className="steps-container">
-                                            <div className="step-item">
-                                                <div className="step-number">1</div>
-                                                <div>
-                                                    Check and collect all required documents - Eligibility,
-                                                    ID Proof, Address Details
-                                                </div>
-                                            </div>
-                                            <div className="step-item">
-                                                <div className="step-number">2</div>
-                                                <div>
-                                                    Ready scanned documents - Photo, Signature, ID Proof,
-                                                    etc.
-                                                </div>
-                                            </div>
-                                            <div className="step-item">
-                                                <div className="step-number">3</div>
-                                                <div>
-                                                    Fill the application form carefully and check preview
-                                                </div>
-                                            </div>
-                                            <div className="step-item">
-                                                <div className="step-number">4</div>
-                                                <div>
-                                                    Submit the form and take a printout of the final
-                                                    submitted form
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <div className="bg-gray-50 p-4 rounded-lg text-center">
+                                        <div className="text-2xl font-bold text-gray-900">₹95</div>
+                                        <div className="text-sm text-gray-600">SC / ST</div>
+                                    </div>
+                                    <div className="bg-gray-50 p-4 rounded-lg text-center">
+                                        <div className="text-2xl font-bold text-gray-900">₹25</div>
+                                        <div className="text-sm text-gray-600">PH (Divyang)</div>
                                     </div>
                                 </div>
-                            </div>
+                                <Alert className="border-yellow-200 bg-yellow-50">
+                                    <AlertDescription className="text-yellow-800">
+                                        <span className="font-semibold">Payment Mode:</span> Pay the Examination Fee Through State Bank of
+                                        India SBI I Collect Fee Mode or Pay the Exam Fee Through E Challan
+                                    </AlertDescription>
+                                </Alert>
+                            </CardContent>
+                        </Card>
 
-                            <div className="col-lg-4">
-                                <div className="card card-animated">
-                                    <div className="card-header bg-dark text-white">
-                                        <h5 className="mb-0">
-                                            <i className="fas fa-tachometer-alt me-2"></i>Quick Info
-                                        </h5>
+                        {/* Age Limit */}
+                        <Card>
+                            <CardHeader>
+                                <CardTitle className="flex items-center">
+                                    <Users className="h-5 w-5 mr-2 text-purple-600" />
+                                    Age Limit (as on 01/07/2025)
+                                </CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                                    <div className="bg-green-50 p-4 rounded-lg">
+                                        <div className="text-lg font-semibold text-green-800">Minimum Age</div>
+                                        <div className="text-2xl font-bold text-green-900">18 Years</div>
                                     </div>
-                                    <div className="card-body">
-                                        <ul className="list-unstyled">
-                                            <li className="mb-2"><strong>Organization:</strong> UPSSSC</li>
-                                            <li className="mb-2"><strong>Exam Name:</strong> PET 2025</li>
-                                            <li className="mb-2"><strong>Minimum Age:</strong> 18 Years</li>
-                                            <li className="mb-2"><strong>Maximum Age:</strong> 40 Years</li>
-                                            <li className="mb-2">
-                                                <strong>Qualification:</strong> className 10
-                                            </li>
-                                        </ul>
+                                    <div className="bg-red-50 p-4 rounded-lg">
+                                        <div className="text-lg font-semibold text-red-800">Maximum Age</div>
+                                        <div className="text-2xl font-bold text-red-900">40 Years</div>
                                     </div>
                                 </div>
+                                <p className="text-sm text-gray-600">
+                                    <span className="font-medium">Note:</span> Age Relaxation Extra as per UPSSSC PET Exam Recruitment
+                                    Rules
+                                </p>
+                            </CardContent>
+                        </Card>
 
-                                <div className="card card-animated">
-                                    <div className="card-header bg-warning text-dark">
-                                        <h5 className="mb-0">
-                                            <i className="fas fa-money-bill-wave me-2"></i>Application Fee
-                                        </h5>
-                                    </div>
-                                    <div className="card-body fee-structure">
-                                        <div className="row text-center">
-                                            <div className="col-12 mb-3">
-                                                <div className="h4">General / OBC</div>
-                                                <div className="h2">₹185/-</div>
-                                            </div>
-                                            <div className="col-6">
-                                                <div className="h6">SC / ST</div>
-                                                <div className="h4">₹95/-</div>
-                                            </div>
-                                            <div className="col-6">
-                                                <div className="h6">PH (Dviyang)</div>
-                                                <div className="h4">₹25/-</div>
-                                            </div>
-                                        </div>
-                                    </div>
+                        {/* Eligibility */}
+                        <Card>
+                            <CardHeader>
+                                <CardTitle className="flex items-center">
+                                    <CheckCircle className="h-5 w-5 mr-2 text-green-600" />
+                                    UPSSSC PET 2025 Eligibility
+                                </CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <div className="bg-blue-50 p-4 rounded-lg">
+                                    <h4 className="font-semibold text-blue-900 mb-2">Educational Qualification:</h4>
+                                    <p className="text-blue-800">
+                                        Minimum Class 10 High School Exam in Any Recognized Board OR Any Higher Qualification in Any
+                                        Recognized University in India.
+                                    </p>
                                 </div>
-                                <div className="card card-animated">
-                                    <div className="card-header bg-primary text-white">
-                                        <h5 className="mb-0">
-                                            <i className="fas fa-link me-2"></i>Important Links
-                                        </h5>
-                                    </div>
-                                    <div className="card-body">
-                                        <div className="d-grid gap-2">
-                                            <a href="#" className="btn btn-apply">
-                                                <i className="fas fa-external-link-alt me-2"></i>Apply Online
-                                            </a>
-                                            <a href="#" className="btn btn-outline-primary">
-                                                <i className="fas fa-download me-2"></i>Download Notification
-                                            </a>
-                                            <a href="#" className="btn btn-outline-info">
-                                                <i className="fas fa-book me-2"></i>Download Syllabus
-                                            </a>
-                                            <a href="#" className="btn btn-outline-success">
-                                                <i className="fas fa-globe me-2"></i>Official Website
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                            </CardContent>
+                        </Card>
 
-                        <div className="row mt-4">
-                            <div className="col-12">
-                                <div className="card card-animated">
-                                    <div className="card-body text-center">
-                                        <h5>Join Our Community</h5>
-                                        <p className="mb-3">
-                                            Stay updated with latest government job notifications
-                                        </p>
-                                        <div className="d-flex justify-content-center gap-3 flex-wrap">
-                                            <a href="#" className="btn btn-outline-primary">
-                                                <i className="fab fa-telegram me-2"></i>Telegram
-                                            </a>
-                                            <a href="#" className="btn btn-outline-success">
-                                                <i className="fab fa-whatsapp me-2"></i>WhatsApp
-                                            </a>
-                                            <a href="#" className="btn btn-outline-info">
-                                                <i className="fab fa-facebook me-2"></i>Facebook
-                                            </a>
-                                        </div>
+                        {/* How to Apply */}
+                        <Card>
+                            <CardHeader>
+                                <CardTitle>How to Fill UPSSSC PET 2025 Online Form</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <div className="space-y-4">
+                                    <p className="text-gray-700">
+                                        Uttar Pradesh Subordinate Service Selection Commission UPSSSC has released PET Exam Form 2025.
+                                        Candidates can apply between 14/05/2025 to 17/06/2025.
+                                    </p>
+
+                                    <div className="bg-gray-50 p-4 rounded-lg">
+                                        <h4 className="font-semibold mb-3">Application Process:</h4>
+                                        <ol className="list-decimal list-inside space-y-2 text-sm text-gray-700">
+                                            <li>Read the Notification Before Apply the Vacancies Application Form</li>
+                                            <li>Check and Collect All Documents - Eligibility, ID Proof, Address Details, Basic Details</li>
+                                            <li>Ready Scan Documents - Photo, Sign, ID Proof, etc.</li>
+                                            <li>Before Apply Online, Check the Preview and All Columns Carefully</li>
+                                            <li>Take A Print Out of Final Submitted Form</li>
+                                        </ol>
                                     </div>
+
+                                    <Alert className="border-green-200 bg-green-50">
+                                        <CheckCircle className="h-4 w-4 text-green-600" />
+                                        <AlertDescription className="text-green-800">
+                                            <span className="font-semibold">Important:</span> In future, all types of government jobs that
+                                            will be conducted by UPSSSC, it will be necessary to pass this exam.
+                                        </AlertDescription>
+                                    </Alert>
                                 </div>
-                            </div>
-                        </div>
+                            </CardContent>
+                        </Card>
+                    </div>
+
+                    {/* Sidebar */}
+                    <div className="space-y-6">
+                        {/* Quick Actions */}
+                        <Card>
+                            <CardHeader>
+                                <CardTitle>Quick Actions</CardTitle>
+                            </CardHeader>
+                            <CardContent className="space-y-3">
+                                <Button className="w-full bg-orange-500 hover:bg-orange-600">
+                                    <ExternalLink className="h-4 w-4 mr-2" />
+                                    Apply Online
+                                </Button>
+                                <Button variant="outline" className="w-full">
+                                    <Download className="h-4 w-4 mr-2" />
+                                    Download Notification
+                                </Button>
+                                <Button variant="outline" className="w-full">
+                                    <FileText className="h-4 w-4 mr-2" />
+                                    Download Syllabus
+                                </Button>
+                                <Button variant="outline" className="w-full">
+                                    <Bell className="h-4 w-4 mr-2" />
+                                    Set Job Alert
+                                </Button>
+                            </CardContent>
+                        </Card>
+
+                        {/* Job Summary */}
+                        <Card>
+                            <CardHeader>
+                                <CardTitle>Job Summary</CardTitle>
+                            </CardHeader>
+                            <CardContent className="space-y-3">
+                                <div className="flex justify-between">
+                                    <span className="text-gray-600">Organization:</span>
+                                    <span className="font-semibold">UPSSSC</span>
+                                </div>
+                                <div className="flex justify-between">
+                                    <span className="text-gray-600">Exam Name:</span>
+                                    <span className="font-semibold">PET 2025</span>
+                                </div>
+                                <div className="flex justify-between">
+                                    <span className="text-gray-600">Advertisement No:</span>
+                                    <span className="font-semibold">01-Exam/2025</span>
+                                </div>
+                                <div className="flex justify-between">
+                                    <span className="text-gray-600">Application Mode:</span>
+                                    <span className="font-semibold text-green-600">Online</span>
+                                </div>
+                                <div className="flex justify-between">
+                                    <span className="text-gray-600">Status:</span>
+                                    <Badge className="bg-green-100 text-green-800">Active</Badge>
+                                </div>
+                            </CardContent>
+                        </Card>
+
+                        {/* Important Links */}
+                        <Card>
+                            <CardHeader>
+                                <CardTitle>Important Links</CardTitle>
+                            </CardHeader>
+                            <CardContent className="space-y-2">
+                                <Link href="#" className="flex items-center text-blue-600 hover:text-blue-800 text-sm">
+                                    <ExternalLink className="h-3 w-3 mr-2" />
+                                    UPSSSC Official Website
+                                </Link>
+                                <Link href="#" className="flex items-center text-blue-600 hover:text-blue-800 text-sm">
+                                    <ExternalLink className="h-3 w-3 mr-2" />
+                                    Join Telegram Channel
+                                </Link>
+                                <Link href="#" className="flex items-center text-blue-600 hover:text-blue-800 text-sm">
+                                    <ExternalLink className="h-3 w-3 mr-2" />
+                                    Join WhatsApp Group
+                                </Link>
+                                <Link href="#" className="flex items-center text-blue-600 hover:text-blue-800 text-sm">
+                                    <ExternalLink className="h-3 w-3 mr-2" />
+                                    Download Mobile App
+                                </Link>
+                            </CardContent>
+                        </Card>
+
+                        {/* Share */}
+                        <Card>
+                            <CardHeader>
+                                <CardTitle>Share This Job</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <div className="flex space-x-2">
+                                    <Button size="sm" variant="outline" className="flex-1">
+                                        WhatsApp
+                                    </Button>
+                                    <Button size="sm" variant="outline" className="flex-1">
+                                        Telegram
+                                    </Button>
+                                    <Button size="sm" variant="outline" className="flex-1">
+                                        Copy Link
+                                    </Button>
+                                </div>
+                            </CardContent>
+                        </Card>
                     </div>
                 </div>
             </div>
-        </>
-    );
+        </div>
+    )
 }

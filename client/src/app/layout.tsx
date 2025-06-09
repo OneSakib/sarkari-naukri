@@ -1,12 +1,10 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import 'bootstrap/dist/css/bootstrap.min.css'
-import BootstrapClient from '@/app/BootstrapClient';
-import '@fortawesome/fontawesome-free/css/all.min.css'
 import "./globals.css";
-import Header from '@/components/Header'
-import Footer from '@/components/Footer'
-import ScrollToTop from "@/components/ScrollToTop";
+import ThemeProvider from "@/components/theme-provider";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -19,7 +17,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Sarkari Naukri",
-  description: "Sarkari Naukri is a platform for government job seekers to find and apply for various job opportunities in India.",
+  description: "Sarkari Naukri - Your one-stop destination for government jobs, admissions, results, answer keys, and syllabus updates.",
 };
 
 export default function RootLayout({
@@ -28,13 +26,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <BootstrapClient />
-        <Header />
-        <main>{children}</main>
-        <ScrollToTop />
-        <Footer />
+    <html lang="en" suppressHydrationWarning>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
+        <ThemeProvider attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange>
+          <Header />
+          {children}
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   );
