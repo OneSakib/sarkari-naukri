@@ -1,619 +1,253 @@
-import { Bell, FileText, Award, BookOpen, ExternalLink, Clock } from "lucide-react"
+import type React from "react"
 import Link from "next/link"
+import {
+  AlertCircle,
+  ArrowRight,
+  Briefcase,
+  GraduationCap,
+  Trophy,
+  FileText,
+  CreditCard,
+  BookOpen,
+  Shield,
+  ExternalLink,
+} from "lucide-react"
+
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Alert, AlertDescription } from "@/components/ui/alert"
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 
-// Sample data
-const latestJobs = [
-  {
-    id: 1,
-    title: "SSC CGL 2024",
-    department: "Staff Selection Commission",
-    posts: "8000+",
-    lastDate: "2024-02-15",
-    category: "Central Govt",
-  },
-  {
-    id: 2,
-    title: "UPSC Civil Services 2024",
-    department: "Union Public Service Commission",
-    posts: "900+",
-    lastDate: "2024-02-20",
-    category: "Central Govt",
-  },
-  {
-    id: 3,
-    title: "Railway Group D",
-    department: "Indian Railways",
-    posts: "50000+",
-    lastDate: "2024-02-25",
-    category: "Railway",
-  },
-  {
-    id: 4,
-    title: "Bank PO Recruitment",
-    department: "IBPS",
-    posts: "5000+",
-    lastDate: "2024-02-18",
-    category: "Banking",
-  },
-  {
-    id: 5,
-    title: "Police Constable",
-    department: "State Police",
-    posts: "10000+",
-    lastDate: "2024-02-22",
-    category: "Police",
-  },
-  {
-    id: 6,
-    title: "Teacher Recruitment",
-    department: "Education Department",
-    posts: "15000+",
-    lastDate: "2024-02-28",
-    category: "Teaching",
-  },
-  {
-    id: 7,
-    title: "Forest Guard",
-    department: "Forest Department",
-    posts: "2000+",
-    lastDate: "2024-03-01",
-    category: "Forest",
-  },
-  {
-    id: 8,
-    title: "Clerk Recruitment",
-    department: "High Court",
-    posts: "500+",
-    lastDate: "2024-02-26",
-    category: "Court",
-  },
-  {
-    id: 9,
-    title: "Junior Engineer",
-    department: "PWD",
-    posts: "3000+",
-    lastDate: "2024-03-05",
-    category: "Engineering",
-  },
-  {
-    id: 10,
-    title: "Nursing Officer",
-    department: "Health Department",
-    posts: "1200+",
-    lastDate: "2024-02-24",
-    category: "Medical",
-  },
-]
-
-const admissions = [
-  { id: 1, title: "JEE Main 2024", organization: "NTA", examDate: "2024-04-15", category: "Engineering" },
-  { id: 2, title: "NEET UG 2024", organization: "NTA", examDate: "2024-05-05", category: "Medical" },
-  { id: 3, title: "CAT 2024", organization: "IIM", examDate: "2024-11-24", category: "Management" },
-  { id: 4, title: "GATE 2024", organization: "IIT", examDate: "2024-02-03", category: "Engineering" },
-  { id: 5, title: "CLAT 2024", organization: "Consortium", examDate: "2024-12-01", category: "Law" },
-  { id: 6, title: "AIIMS MBBS", organization: "AIIMS", examDate: "2024-05-20", category: "Medical" },
-  { id: 7, title: "UPSC CAPF", organization: "UPSC", examDate: "2024-08-04", category: "Defence" },
-  { id: 8, title: "NDA Exam", organization: "UPSC", examDate: "2024-04-21", category: "Defence" },
-  { id: 9, title: "CTET 2024", organization: "CBSE", examDate: "2024-07-07", category: "Teaching" },
-  { id: 10, title: "UGC NET", organization: "NTA", examDate: "2024-06-18", category: "Research" },
-]
-
-const results = [
-  { id: 1, title: "SSC CHSL Result 2023", organization: "SSC", publishDate: "2024-01-15", status: "Final Result" },
-  { id: 2, title: "IBPS PO Prelims Result", organization: "IBPS", publishDate: "2024-01-20", status: "Prelims" },
-  { id: 3, title: "Railway Group D Result", organization: "RRB", publishDate: "2024-01-18", status: "Final Result" },
-  { id: 4, title: "UPSC CSE Prelims Result", organization: "UPSC", publishDate: "2024-01-22", status: "Prelims" },
-  { id: 5, title: "Bank Clerk Result", organization: "IBPS", publishDate: "2024-01-25", status: "Final Result" },
-  {
-    id: 6,
-    title: "Police Constable Result",
-    organization: "State Police",
-    publishDate: "2024-01-19",
-    status: "Final Result",
-  },
-  {
-    id: 7,
-    title: "Teacher Eligibility Result",
-    organization: "TET Board",
-    publishDate: "2024-01-21",
-    status: "Final Result",
-  },
-  { id: 8, title: "JEE Main Result", organization: "NTA", publishDate: "2024-01-30", status: "Session 1" },
-  { id: 9, title: "NEET Result 2023", organization: "NTA", publishDate: "2024-01-17", status: "Final Result" },
-  { id: 10, title: "GATE Result", organization: "IIT", publishDate: "2024-01-28", status: "Final Result" },
-]
-const answerKeys = [
-  { id: 1, title: "SSC CHSL Result 2023", organization: "SSC", publishDate: "2024-01-15", status: "Final Result" },
-  { id: 2, title: "IBPS PO Prelims Result", organization: "IBPS", publishDate: "2024-01-20", status: "Prelims" },
-  { id: 3, title: "Railway Group D Result", organization: "RRB", publishDate: "2024-01-18", status: "Final Result" },
-  { id: 4, title: "UPSC CSE Prelims Result", organization: "UPSC", publishDate: "2024-01-22", status: "Prelims" },
-  { id: 5, title: "Bank Clerk Result", organization: "IBPS", publishDate: "2024-01-25", status: "Final Result" },
-  {
-    id: 6,
-    title: "Police Constable Result",
-    organization: "State Police",
-    publishDate: "2024-01-19",
-    status: "Final Result",
-  },
-  {
-    id: 7,
-    title: "Teacher Eligibility Result",
-    organization: "TET Board",
-    publishDate: "2024-01-21",
-    status: "Final Result",
-  },
-  { id: 8, title: "JEE Main Result", organization: "NTA", publishDate: "2024-01-30", status: "Session 1" },
-  { id: 9, title: "NEET Result 2023", organization: "NTA", publishDate: "2024-01-17", status: "Final Result" },
-  { id: 10, title: "GATE Result", organization: "IIT", publishDate: "2024-01-28", status: "Final Result" },
-]
-const syllabus = [
-  { id: 1, title: "SSC CHSL Result 2023", organization: "SSC", publishDate: "2024-01-15", status: "Final Result" },
-  { id: 2, title: "IBPS PO Prelims Result", organization: "IBPS", publishDate: "2024-01-20", status: "Prelims" },
-  { id: 3, title: "Railway Group D Result", organization: "RRB", publishDate: "2024-01-18", status: "Final Result" },
-  { id: 4, title: "UPSC CSE Prelims Result", organization: "UPSC", publishDate: "2024-01-22", status: "Prelims" },
-  { id: 5, title: "Bank Clerk Result", organization: "IBPS", publishDate: "2024-01-25", status: "Final Result" },
-  {
-    id: 6,
-    title: "Police Constable Result",
-    organization: "State Police",
-    publishDate: "2024-01-19",
-    status: "Final Result",
-  },
-  {
-    id: 7,
-    title: "Teacher Eligibility Result",
-    organization: "TET Board",
-    publishDate: "2024-01-21",
-    status: "Final Result",
-  },
-  { id: 8, title: "JEE Main Result", organization: "NTA", publishDate: "2024-01-30", status: "Session 1" },
-  { id: 9, title: "NEET Result 2023", organization: "NTA", publishDate: "2024-01-17", status: "Final Result" },
-  { id: 10, title: "GATE Result", organization: "IIT", publishDate: "2024-01-28", status: "Final Result" },
-]
-const admitCards = [
-  { id: 1, title: "SSC CHSL Result 2023", organization: "SSC", publishDate: "2024-01-15", status: "Final Result" },
-  { id: 2, title: "IBPS PO Prelims Result", organization: "IBPS", publishDate: "2024-01-20", status: "Prelims" },
-  { id: 3, title: "Railway Group D Result", organization: "RRB", publishDate: "2024-01-18", status: "Final Result" },
-  { id: 4, title: "UPSC CSE Prelims Result", organization: "UPSC", publishDate: "2024-01-22", status: "Prelims" },
-  { id: 5, title: "Bank Clerk Result", organization: "IBPS", publishDate: "2024-01-25", status: "Final Result" },
-  {
-    id: 6,
-    title: "Police Constable Result",
-    organization: "State Police",
-    publishDate: "2024-01-19",
-    status: "Final Result",
-  },
-  {
-    id: 7,
-    title: "Teacher Eligibility Result",
-    organization: "TET Board",
-    publishDate: "2024-01-21",
-    status: "Final Result",
-  },
-  { id: 8, title: "JEE Main Result", organization: "NTA", publishDate: "2024-01-30", status: "Session 1" },
-  { id: 9, title: "NEET Result 2023", organization: "NTA", publishDate: "2024-01-17", status: "Final Result" },
-  { id: 10, title: "GATE Result", organization: "IIT", publishDate: "2024-01-28", status: "Final Result" },
-]
-const certificateVerification = [
-  { id: 1, title: "SSC CHSL Result 2023", organization: "SSC", publishDate: "2024-01-15", status: "Final Result" },
-  { id: 2, title: "IBPS PO Prelims Result", organization: "IBPS", publishDate: "2024-01-20", status: "Prelims" },
-  { id: 3, title: "Railway Group D Result", organization: "RRB", publishDate: "2024-01-18", status: "Final Result" },
-  { id: 4, title: "UPSC CSE Prelims Result", organization: "UPSC", publishDate: "2024-01-22", status: "Prelims" },
-  { id: 5, title: "Bank Clerk Result", organization: "IBPS", publishDate: "2024-01-25", status: "Final Result" },
-  {
-    id: 6,
-    title: "Police Constable Result",
-    organization: "State Police",
-    publishDate: "2024-01-19",
-    status: "Final Result",
-  },
-  {
-    id: 7,
-    title: "Teacher Eligibility Result",
-    organization: "TET Board",
-    publishDate: "2024-01-21",
-    status: "Final Result",
-  },
-  { id: 8, title: "JEE Main Result", organization: "NTA", publishDate: "2024-01-30", status: "Session 1" },
-  { id: 9, title: "NEET Result 2023", organization: "NTA", publishDate: "2024-01-17", status: "Final Result" },
-  { id: 10, title: "GATE Result", organization: "IIT", publishDate: "2024-01-28", status: "Final Result" },
-]
-const others = [
-  { id: 1, title: "SSC CHSL Result 2023", organization: "SSC", publishDate: "2024-01-15", status: "Final Result" },
-  { id: 2, title: "IBPS PO Prelims Result", organization: "IBPS", publishDate: "2024-01-20", status: "Prelims" },
-  { id: 3, title: "Railway Group D Result", organization: "RRB", publishDate: "2024-01-18", status: "Final Result" },
-  { id: 4, title: "UPSC CSE Prelims Result", organization: "UPSC", publishDate: "2024-01-22", status: "Prelims" },
-  { id: 5, title: "Bank Clerk Result", organization: "IBPS", publishDate: "2024-01-25", status: "Final Result" },
-  {
-    id: 6,
-    title: "Police Constable Result",
-    organization: "State Police",
-    publishDate: "2024-01-19",
-    status: "Final Result",
-  },
-  {
-    id: 7,
-    title: "Teacher Eligibility Result",
-    organization: "TET Board",
-    publishDate: "2024-01-21",
-    status: "Final Result",
-  },
-  { id: 8, title: "JEE Main Result", organization: "NTA", publishDate: "2024-01-30", status: "Session 1" },
-  { id: 9, title: "NEET Result 2023", organization: "NTA", publishDate: "2024-01-17", status: "Final Result" },
-  { id: 10, title: "GATE Result", organization: "IIT", publishDate: "2024-01-28", status: "Final Result" },
-]
-
-export default function HomePage() {
+export default function Home() {
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Alert Section */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        <Alert className="border-red-200 bg-red-50">
-          <Bell className="h-4 w-4 text-red-600" />
-          <AlertDescription className="text-red-800">
-            <span className="font-semibold">🔥 Urgent Alert:</span> SSC CGL 2024 application deadline extended till Feb
-            15th!
-            <Link href="/jobs/ssc-cgl-2024" className="text-red-600 underline ml-2 font-medium">
-              Apply Now - Don&apos;t Miss Out!
-            </Link>
+    <div className="min-h-screen bg-gradient-to-br from-orange-50 to-red-50">
+      <div className="container mx-auto px-3 sm:px-4 lg:px-6 py-4 sm:py-8">
+        {/* Top Alert */}
+        <Alert variant="destructive" className="mb-4 sm:mb-6 shadow-lg border-l-4 border-l-red-500">
+          <AlertCircle className="h-4 w-4" />
+          <AlertTitle className="text-sm sm:text-base font-semibold">Important Notice!</AlertTitle>
+          <AlertDescription className="text-xs sm:text-sm mt-1">
+            UPSC Civil Services 2024 Application deadline extended to June 15th. Apply now!
           </AlertDescription>
         </Alert>
-        <Alert className="border-red-200 bg-red-50 mt-2">
-          <Bell className="h-4 w-4 text-red-600" />
-          <AlertDescription className="text-red-800">
-            <span className="font-semibold">🔥 Urgent Alert:</span> SSC CGL 2024 application deadline extended till Feb
-            15th!
-            <Link href="/jobs/ssc-cgl-2024" className="text-red-600 underline ml-2 font-medium">
-              Apply Now - Don&apos;t Miss Out!
-            </Link>
-          </AlertDescription>
-        </Alert>
-        <Alert className="border-red-200 bg-red-50 mt-2">
-          <Bell className="h-4 w-4 text-red-600" />
-          <AlertDescription className="text-red-800">
-            <span className="font-semibold">🔥 Urgent Alert:</span> SSC CGL 2024 application deadline extended till Feb
-            15th!
-            <Link href="/jobs/ssc-cgl-2024" className="text-red-600 underline ml-2 font-medium">
-              Apply Now - Don&apos;t Miss Out!
-            </Link>
-          </AlertDescription>
-        </Alert>
-        <Alert className="border-red-200 bg-red-50 mt-2">
-          <Bell className="h-4 w-4 text-red-600" />
-          <AlertDescription className="text-red-800">
-            <span className="font-semibold">🔥 Urgent Alert:</span> SSC CGL 2024 application deadline extended till Feb
-            15th!
-            <Link href="/jobs/ssc-cgl-2024" className="text-red-600 underline ml-2 font-medium">
-              Apply Now - Don&apos;t Miss Out!
-            </Link>
-          </AlertDescription>
-        </Alert>
-      </section>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Latest Jobs Section */}
-        <section className="mb-12">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-bold text-gray-900 flex items-center">
-              <FileText className="h-6 w-6 mr-2 text-blue-600" />
-              Latest Jobs
-            </h2>
-            <Link href="/jobs">
-              <Button variant="outline" className="flex items-center">
-                View All Jobs <ExternalLink className="ml-2 h-4 w-4" />
-              </Button>
-            </Link>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {latestJobs.slice(0, 9).map((job) => (
-              <Card key={job.id} className="hover:shadow-lg transition-shadow">
-                <CardHeader className="pb-3">
-                  <div className="flex justify-between items-start">
-                    <Badge variant="secondary" className="mb-2">
-                      {job.category}
-                    </Badge>
-                    <Badge variant="destructive" className="text-xs">
-                      <Clock className="h-3 w-3 mr-1" />
-                      Closing Soon
-                    </Badge>
-                  </div>
-                  <CardTitle className="text-lg">{job.title}</CardTitle>
-                  <CardDescription>{job.department}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-2 text-sm">
-                    <div className="flex justify-between">
-                      <span className="text-gray-600">Posts:</span>
-                      <span className="font-semibold text-green-600">{job.posts}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-gray-600">Last Date:</span>
-                      <span className="font-semibold text-red-600">{job.lastDate}</span>
-                    </div>
-                  </div>
-                  <Button className="w-full mt-4" size="sm" >
-                    <Link href={`/jobs/${job.id}`}>
-                      View Details & Apply
-                    </Link>
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </section>
+        {/* Main Title */}
+        <div className="text-center mb-6 sm:mb-8">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent mb-2">
+            Sarkari Naukri
+          </h1>
+          <p className="text-sm sm:text-base text-gray-600">Government Job Alerts & Updates</p>
+        </div>
 
-        {/* Admissions Section */}
-        <section className="mb-12">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-bold text-gray-900 flex items-center">
-              <BookOpen className="h-6 w-6 mr-2 text-green-600" />
-              Admissions
-            </h2>
-            <Link href="/admissions">
-              <Button variant="outline" className="flex items-center">
-                View All Admissions <ExternalLink className="ml-2 h-4 w-4" />
-              </Button>
-            </Link>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {admissions.slice(0, 9).map((admission) => (
-              <Card key={admission.id} className="hover:shadow-lg transition-shadow">
-                <CardHeader className="pb-3">
-                  <Badge variant="outline" className="mb-2 w-fit">
-                    {admission.category}
-                  </Badge>
-                  <CardTitle className="text-lg">{admission.title}</CardTitle>
-                  <CardDescription>{admission.organization}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-2 text-sm">
-                    <div className="flex justify-between">
-                      <span className="text-gray-600">Exam Date:</span>
-                      <span className="font-semibold text-blue-600">{admission.examDate}</span>
-                    </div>
-                  </div>
-                  <Button className="w-full mt-4" size="sm" variant="outline">
-                    View Details
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </section>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
+          {/* Latest Jobs */}
+          <CategoryCard
+            title="Latest Jobs"
+            icon={<Briefcase className="h-5 w-5 sm:h-6 sm:w-6" />}
+            gradient="from-blue-500 to-blue-600"
+            items={[
+              { title: "UPSC Civil Services 2024", date: "10 Jun 2024" },
+              { title: "SSC CGL 2024", date: "08 Jun 2024" },
+              { title: "IBPS PO Recruitment 2024", date: "05 Jun 2024" },
+              { title: "Railway NTPC 2024", date: "02 Jun 2024" },
+              { title: "SBI Clerk Recruitment", date: "01 Jun 2024" },
+              { title: "DRDO Scientist Recruitment", date: "29 May 2024" },
+              { title: "Indian Army Technical Entry", date: "28 May 2024" },
+              { title: "ISRO Scientist Recruitment", date: "25 May 2024" },
+              { title: "Delhi Police Constable", date: "22 May 2024" },
+              { title: "NEET UG Counselling 2024", date: "20 May 2024" },
+            ]}
+            viewMoreLink="/latest-jobs"
+          />
 
-        {/* Results Section */}
-        <section className="mb-12">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-bold text-gray-900 flex items-center">
-              <Award className="h-6 w-6 mr-2 text-purple-600" />
-              Results
-            </h2>
-            <Link href="/results">
-              <Button variant="outline" className="flex items-center">
-                View All Results <ExternalLink className="ml-2 h-4 w-4" />
-              </Button>
-            </Link>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {results.slice(0, 9).map((result) => (
-              <Card key={result.id} className="hover:shadow-lg transition-shadow">
-                <CardHeader className="pb-3">
-                  <Badge variant={result.status === "Final Result" ? "default" : "secondary"} className="mb-2 w-fit">
-                    {result.status}
-                  </Badge>
-                  <CardTitle className="text-lg">{result.title}</CardTitle>
-                  <CardDescription>{result.organization}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-2 text-sm">
-                    <div className="flex justify-between">
-                      <span className="text-gray-600">Published:</span>
-                      <span className="font-semibold text-green-600">{result.publishDate}</span>
-                    </div>
-                  </div>
-                  <Button className="w-full mt-4" size="sm" variant="outline">
-                    Check Result
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </section>
-        {/* answerKeys Section */}
-        <section className="mb-12">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-bold text-gray-900 flex items-center">
-              <Award className="h-6 w-6 mr-2 text-purple-600" />
-              Answer Keys
-            </h2>
-            <Link href="/answer-keys">
-              <Button variant="outline" className="flex items-center">
-                View All Answer Keys <ExternalLink className="ml-2 h-4 w-4" />
-              </Button>
-            </Link>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {answerKeys.slice(0, 9).map((result) => (
-              <Card key={result.id} className="hover:shadow-lg transition-shadow">
-                <CardHeader className="pb-3">
-                  <Badge variant={result.status === "Final Result" ? "default" : "secondary"} className="mb-2 w-fit">
-                    {result.status}
-                  </Badge>
-                  <CardTitle className="text-lg">{result.title}</CardTitle>
-                  <CardDescription>{result.organization}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-2 text-sm">
-                    <div className="flex justify-between">
-                      <span className="text-gray-600">Published:</span>
-                      <span className="font-semibold text-green-600">{result.publishDate}</span>
-                    </div>
-                  </div>
-                  <Button className="w-full mt-4" size="sm" variant="outline">
-                    Check Result
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </section>
-        {/* syllabus Section */}
-        <section className="mb-12">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-bold text-gray-900 flex items-center">
-              <Award className="h-6 w-6 mr-2 text-purple-600" />
-              Syllabus
-            </h2>
-            <Link href="/syllabus">
-              <Button variant="outline" className="flex items-center">
-                View All Syllabus <ExternalLink className="ml-2 h-4 w-4" />
-              </Button>
-            </Link>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {syllabus.slice(0, 9).map((result) => (
-              <Card key={result.id} className="hover:shadow-lg transition-shadow">
-                <CardHeader className="pb-3">
-                  <Badge variant={result.status === "Final Result" ? "default" : "secondary"} className="mb-2 w-fit">
-                    {result.status}
-                  </Badge>
-                  <CardTitle className="text-lg">{result.title}</CardTitle>
-                  <CardDescription>{result.organization}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-2 text-sm">
-                    <div className="flex justify-between">
-                      <span className="text-gray-600">Published:</span>
-                      <span className="font-semibold text-green-600">{result.publishDate}</span>
-                    </div>
-                  </div>
-                  <Button className="w-full mt-4" size="sm" variant="outline">
-                    Check Result
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </section>
-        {/* admitCards Section */}
-        <section className="mb-12">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-bold text-gray-900 flex items-center">
-              <Award className="h-6 w-6 mr-2 text-purple-600" />
-              Admit Cards
-            </h2>
-            <Link href="/admit-cards">
-              <Button variant="outline" className="flex items-center">
-                View All Admit Cards <ExternalLink className="ml-2 h-4 w-4" />
-              </Button>
-            </Link>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {admitCards.slice(0, 9).map((result) => (
-              <Card key={result.id} className="hover:shadow-lg transition-shadow">
-                <CardHeader className="pb-3">
-                  <Badge variant={result.status === "Final Result" ? "default" : "secondary"} className="mb-2 w-fit">
-                    {result.status}
-                  </Badge>
-                  <CardTitle className="text-lg">{result.title}</CardTitle>
-                  <CardDescription>{result.organization}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-2 text-sm">
-                    <div className="flex justify-between">
-                      <span className="text-gray-600">Published:</span>
-                      <span className="font-semibold text-green-600">{result.publishDate}</span>
-                    </div>
-                  </div>
-                  <Button className="w-full mt-4" size="sm" variant="outline">
-                    Check Result
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </section>
-        {/* certificateVerification Section */}
-        <section className="mb-12">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-bold text-gray-900 flex items-center">
-              <Award className="h-6 w-6 mr-2 text-purple-600" />
-              Certificate Verfification
-            </h2>
-            <Link href="/certificate-verification">
-              <Button variant="outline" className="flex items-center">
-                View All Certificate Verfification <ExternalLink className="ml-2 h-4 w-4" />
-              </Button>
-            </Link>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {certificateVerification.slice(0, 9).map((result) => (
-              <Card key={result.id} className="hover:shadow-lg transition-shadow">
-                <CardHeader className="pb-3">
-                  <Badge variant={result.status === "Final Result" ? "default" : "secondary"} className="mb-2 w-fit">
-                    {result.status}
-                  </Badge>
-                  <CardTitle className="text-lg">{result.title}</CardTitle>
-                  <CardDescription>{result.organization}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-2 text-sm">
-                    <div className="flex justify-between">
-                      <span className="text-gray-600">Published:</span>
-                      <span className="font-semibold text-green-600">{result.publishDate}</span>
-                    </div>
-                  </div>
-                  <Button className="w-full mt-4" size="sm" variant="outline">
-                    Check Result
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </section>
-        {/* others Section */}
-        <section className="mb-12">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-bold text-gray-900 flex items-center">
-              <Award className="h-6 w-6 mr-2 text-purple-600" />
-              Others
-            </h2>
-            <Link href="/others">
-              <Button variant="outline" className="flex items-center">
-                View All Others <ExternalLink className="ml-2 h-4 w-4" />
-              </Button>
-            </Link>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {others.slice(0, 9).map((result) => (
-              <Card key={result.id} className="hover:shadow-lg transition-shadow">
-                <CardHeader className="pb-3">
-                  <Badge variant={result.status === "Final Result" ? "default" : "secondary"} className="mb-2 w-fit">
-                    {result.status}
-                  </Badge>
-                  <CardTitle className="text-lg">{result.title}</CardTitle>
-                  <CardDescription>{result.organization}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-2 text-sm">
-                    <div className="flex justify-between">
-                      <span className="text-gray-600">Published:</span>
-                      <span className="font-semibold text-green-600">{result.publishDate}</span>
-                    </div>
-                  </div>
-                  <Button className="w-full mt-4" size="sm" variant="outline">
-                    Check Result
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </section>
-      </main>
+          {/* Admissions */}
+          <CategoryCard
+            title="Admissions"
+            icon={<GraduationCap className="h-5 w-5 sm:h-6 sm:w-6" />}
+            gradient="from-green-500 to-green-600"
+            items={[
+              { title: "IIT JEE Advanced Counselling", date: "09 Jun 2024" },
+              { title: "NEET PG Admission 2024", date: "07 Jun 2024" },
+              { title: "Delhi University Admission", date: "05 Jun 2024" },
+              { title: "AIIMS MBBS Admission", date: "03 Jun 2024" },
+              { title: "IIM CAT Admission Process", date: "01 Jun 2024" },
+              { title: "NLU Admission through CLAT", date: "30 May 2024" },
+              { title: "Kendriya Vidyalaya Admission", date: "28 May 2024" },
+              { title: "Navodaya Vidyalaya Admission", date: "26 May 2024" },
+              { title: "IGNOU July Session", date: "24 May 2024" },
+              { title: "Sainik School Admission", date: "22 May 2024" },
+            ]}
+            viewMoreLink="/admissions"
+          />
+
+          {/* Results */}
+          <CategoryCard
+            title="Results"
+            icon={<Trophy className="h-5 w-5 sm:h-6 sm:w-6" />}
+            gradient="from-purple-500 to-purple-600"
+            items={[
+              { title: "UPSC Prelims Result 2024", date: "08 Jun 2024" },
+              { title: "SSC CHSL Tier 1 Result", date: "06 Jun 2024" },
+              { title: "IBPS Clerk Final Result", date: "04 Jun 2024" },
+              { title: "NEET UG Result 2024", date: "02 Jun 2024" },
+              { title: "JEE Main April Session Result", date: "31 May 2024" },
+              { title: "CTET Result June 2024", date: "29 May 2024" },
+              { title: "RRB NTPC Final Result", date: "27 May 2024" },
+              { title: "GATE 2024 Final Result", date: "25 May 2024" },
+              { title: "UP Board 10th, 12th Result", date: "23 May 2024" },
+              { title: "Bihar Board Matric Result", date: "21 May 2024" },
+            ]}
+            viewMoreLink="/results"
+          />
+
+          {/* Answer Keys */}
+          <CategoryCard
+            title="Answer Keys"
+            icon={<FileText className="h-5 w-5 sm:h-6 sm:w-6" />}
+            gradient="from-orange-500 to-orange-600"
+            items={[
+              { title: "UPSC CSE Prelims Answer Key", date: "09 Jun 2024" },
+              { title: "SSC GD Constable Answer Key", date: "07 Jun 2024" },
+              { title: "IBPS RRB Answer Key", date: "05 Jun 2024" },
+              { title: "CTET June Exam Answer Key", date: "03 Jun 2024" },
+              { title: "NEET UG Answer Key 2024", date: "01 Jun 2024" },
+              { title: "JEE Advanced Answer Key", date: "30 May 2024" },
+              { title: "GATE 2024 Answer Key", date: "28 May 2024" },
+              { title: "UGC NET Answer Key", date: "26 May 2024" },
+              { title: "RRB Group D Answer Key", date: "24 May 2024" },
+              { title: "CSIR NET Answer Key", date: "22 May 2024" },
+            ]}
+            viewMoreLink="/answer-keys"
+          />
+
+          {/* Admit Cards */}
+          <CategoryCard
+            title="Admit Cards"
+            icon={<CreditCard className="h-5 w-5 sm:h-6 sm:w-6" />}
+            gradient="from-red-500 to-red-600"
+            items={[
+              { title: "SSC CGL Tier 2 Admit Card", date: "10 Jun 2024" },
+              { title: "IBPS PO Prelims Admit Card", date: "08 Jun 2024" },
+              { title: "RRB NTPC CBT 2 Admit Card", date: "06 Jun 2024" },
+              { title: "UPSC CAPF Admit Card", date: "04 Jun 2024" },
+              { title: "CTET December Admit Card", date: "02 Jun 2024" },
+              { title: "JEE Advanced Admit Card", date: "31 May 2024" },
+              { title: "NEET PG Admit Card", date: "29 May 2024" },
+              { title: "UGC NET June Admit Card", date: "27 May 2024" },
+              { title: "SSC CHSL Tier 2 Admit Card", date: "25 May 2024" },
+              { title: "IBPS Clerk Prelims Admit Card", date: "23 May 2024" },
+            ]}
+            viewMoreLink="/admit-cards"
+          />
+
+          {/* Syllabus */}
+          <CategoryCard
+            title="Syllabus"
+            icon={<BookOpen className="h-5 w-5 sm:h-6 sm:w-6" />}
+            gradient="from-indigo-500 to-indigo-600"
+            items={[
+              { title: "UPSC CSE 2025 Syllabus", date: "09 Jun 2024" },
+              { title: "SSC CGL 2024-25 Syllabus", date: "07 Jun 2024" },
+              { title: "IBPS PO 2024 Syllabus", date: "05 Jun 2024" },
+              { title: "RRB NTPC Detailed Syllabus", date: "03 Jun 2024" },
+              { title: "NEET UG 2025 Syllabus", date: "01 Jun 2024" },
+              { title: "JEE Main & Advanced Syllabus", date: "30 May 2024" },
+              { title: "GATE 2025 Syllabus", date: "28 May 2024" },
+              { title: "UGC NET Syllabus", date: "26 May 2024" },
+              { title: "CTET Paper 1 & 2 Syllabus", date: "24 May 2024" },
+              { title: "SSC CHSL Syllabus", date: "22 May 2024" },
+            ]}
+            viewMoreLink="/syllabus"
+          />
+
+          {/* Certificate Verification */}
+          <CategoryCard
+            title="Certificate Verification"
+            icon={<Shield className="h-5 w-5 sm:h-6 sm:w-6" />}
+            gradient="from-teal-500 to-teal-600"
+            items={[
+              { title: "UPSC DV Schedule 2024", date: "10 Jun 2024" },
+              { title: "SSC CGL Document Verification", date: "08 Jun 2024" },
+              { title: "IBPS PO Certificate Verification", date: "06 Jun 2024" },
+              { title: "RRB NTPC DV Process", date: "04 Jun 2024" },
+              { title: "SBI PO Document Verification", date: "02 Jun 2024" },
+              { title: "UPSC Civil Services DV", date: "31 May 2024" },
+              { title: "SSC CHSL Document Verification", date: "29 May 2024" },
+              { title: "IBPS Clerk Certificate Verification", date: "27 May 2024" },
+              { title: "RRB Group D DV Schedule", date: "25 May 2024" },
+              { title: "SBI Clerk Document Verification", date: "23 May 2024" },
+            ]}
+            viewMoreLink="/certificate-verification"
+          />
+
+          {/* Other Links */}
+          <CategoryCard
+            title="Other Links"
+            icon={<ExternalLink className="h-5 w-5 sm:h-6 sm:w-6" />}
+            gradient="from-pink-500 to-pink-600"
+            items={[
+              { title: "How to Prepare for UPSC", date: "09 Jun 2024" },
+              { title: "SSC Exam Calendar 2024-25", date: "07 Jun 2024" },
+              { title: "Banking Exam Tips & Tricks", date: "05 Jun 2024" },
+              { title: "Government Job Interview Tips", date: "03 Jun 2024" },
+              { title: "Free Study Materials", date: "01 Jun 2024" },
+              { title: "Mock Test Series", date: "30 May 2024" },
+              { title: "Previous Year Question Papers", date: "28 May 2024" },
+              { title: "Scholarship Opportunities", date: "26 May 2024" },
+              { title: "Career Counselling Services", date: "24 May 2024" },
+              { title: "Government Job Salary Structure", date: "22 May 2024" },
+            ]}
+            viewMoreLink="/other-links"
+          />
+        </div>
+      </div>
     </div>
+  )
+}
+
+interface CategoryCardProps {
+  title: string
+  icon: React.ReactNode
+  gradient: string
+  items: { title: string; date: string }[]
+  viewMoreLink: string
+}
+
+function CategoryCard({ title, icon, gradient, items, viewMoreLink }: CategoryCardProps) {
+  return (
+    <Card className="h-full shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-0 overflow-hidden">
+      <CardHeader className={`bg-gradient-to-r ${gradient} text-white p-3 sm:p-4`}>
+        <CardTitle className="flex items-center gap-2 text-base sm:text-lg font-bold">
+          {icon}
+          <span className="truncate">{title}</span>
+        </CardTitle>
+      </CardHeader>
+      <CardContent className="p-3 sm:p-4">
+        <ul className="space-y-2">
+          {items.map((item, index) => (
+            <li key={index} className="border-b border-gray-100 pb-2 last:border-0">
+              <Link href="#" className="hover:text-primary block group">
+                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-1">
+                  <span className="text-xs sm:text-sm font-medium group-hover:text-blue-600 transition-colors line-clamp-2">
+                    {item.title}
+                  </span>
+                  <span className="text-xs text-muted-foreground flex-shrink-0">{item.date}</span>
+                </div>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </CardContent>
+      <CardFooter className="p-3 sm:p-4 pt-0">
+        <Button
+          variant="outline"
+          className="w-full text-xs sm:text-sm hover:bg-primary hover:text-white transition-colors"
+          asChild
+        >
+          <Link href={viewMoreLink}>
+            View More <ArrowRight className="ml-2 h-3 w-3 sm:h-4 sm:w-4" />
+          </Link>
+        </Button>
+      </CardFooter>
+    </Card>
   )
 }
