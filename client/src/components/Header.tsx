@@ -4,7 +4,7 @@ import ThemeModeToggle from "@/components/ThemeModeToggle"
 import Image from "next/image"
 export default function Header() {
     const navLinks = [
-        { name: "Latest Jobs", href: "/latest-jobs" },
+        { name: "Latest Jobs", href: "/jobs" },
         { name: "Admission", href: "/admissions" },
         { name: "Results", href: "/results" },
         { name: "Answer Keys", href: "/answer-keys" },
