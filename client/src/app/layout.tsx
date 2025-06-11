@@ -18,6 +18,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Sarkari Naukri",
   description: "Sarkari Naukri - Your one-stop destination for government jobs, admissions, results, answer keys, and syllabus updates.",
+  icons: {
+    icon: "/logo.png", // or /favicon.png
+  },
 };
 
 export default function RootLayout({
