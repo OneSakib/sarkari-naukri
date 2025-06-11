@@ -15,6 +15,7 @@ import Link from "next/link"
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
 import { Button } from "./ui/button"
 import { useState } from "react"
+import Image from "next/image"
 export default function Header() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
@@ -35,9 +36,7 @@ export default function Header() {
                 <div className="flex justify-between items-center py-3 sm:py-4">
                     {/* Logo */}
                     <Link href="/" className="flex items-center">
-                        <h1 className="text-lg sm:text-xl lg:text-2xl font-bold hover:text-orange-200 transition-colors">
-                            Sarkari Naukri
-                        </h1>
+                        <Image src={'/logo.png'} width={'30'} height={'30'} alt="logo" className="rounded" />
                     </Link>
 
                     {/* Desktop Navigation */}
