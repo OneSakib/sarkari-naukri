@@ -90,7 +90,7 @@ export default function Header() {
                                         ))}
                                     </ul>
                                 </nav>
-                                <div className="hidden lg:block pl-1">
+                                <div className="pl-1">
                                     <ThemeModeToggle />
                                 </div>
                                 {/* Additional Mobile Menu Content */}
