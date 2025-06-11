@@ -56,7 +56,7 @@ export default function Home() {
               { title: "Delhi Police Constable", date: "22 May 2024" },
               { title: "NEET UG Counselling 2024", date: "20 May 2024" },
             ]}
-            viewMoreLink="/latest-jobs"
+            viewMoreLink="/jobs"
           />
 
           {/* Admissions */}
@@ -214,7 +214,7 @@ interface CategoryCardProps {
 
 function CategoryCard({ title, icon, gradient, items, viewMoreLink }: CategoryCardProps) {
   return (
-    <Card className="h-full shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-0 overflow-hidden">
+    <Card className="h-full shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-0 overflow-hidden p-0">
       <CardHeader className={`bg-gradient-to-r ${gradient} text-white p-3 sm:p-4`}>
         <CardTitle className="flex items-center gap-2 text-base sm:text-lg font-bold">
           {icon}
@@ -225,7 +225,7 @@ function CategoryCard({ title, icon, gradient, items, viewMoreLink }: CategoryCa
         <ul className="space-y-2">
           {items.map((item, index) => (
             <li key={index} className="border-b border-gray-100 pb-2 last:border-0">
-              <Link href="#" className="hover:text-primary block group">
+              <Link href={"/jobs/" + item.title} className="hover:text-primary block group">
                 <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-1">
                   <span className="text-xs sm:text-sm font-medium group-hover:text-blue-600 transition-colors line-clamp-2">
                     {item.title}

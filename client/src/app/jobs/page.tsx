@@ -346,20 +346,14 @@ export default function LatestJobsPage() {
     return (
         <div className="min-h-screen bg-gradient-to-br from-orange-50 to-red-50">
             <div className="container mx-auto px-3 sm:px-4 lg:px-6 py-4 sm:py-8">
-                {/* Header */}
-                <div className="mb-6 sm:mb-8">
-                    <div className="flex items-center gap-2 mb-4">
-                        <Link href="/" className="text-primary hover:text-primary/80">
-                            <ChevronLeft className="h-5 w-5" />
-                        </Link>
-                        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent">
-                            Latest Government Jobs
-                        </h1>
-                    </div>
-                    <p className="text-sm sm:text-base text-gray-600">
-                        Find the latest government job opportunities across India
-                    </p>
-                </div>
+                {/* Breadcrumb */}
+                <nav className="flex mb-6 text-sm text-gray-600">
+                    <Link href="/" className="hover:text-blue-600">
+                        Home
+                    </Link>
+                    <span className="mx-2">/</span>
+                    <span className="text-gray-900">Latest Jobs</span>
+                </nav>
 
                 {/* Search and Filters */}
                 <Card className="mb-6 shadow-lg">
@@ -452,8 +446,8 @@ export default function LatestJobsPage() {
                 </div>
 
                 {/* Jobs List */}
-                <Card className="shadow-lg mb-8">
-                    <CardHeader className="bg-gradient-to-r from-blue-500 to-blue-600 text-white">
+                <Card className="shadow-lg mb-8 p-0">
+                    <CardHeader className="bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-t-lg py-2">
                         <CardTitle className="flex items-center gap-2 text-xl">
                             <Briefcase className="h-6 w-6" />
                             Latest Government Jobs ({filteredJobs.length})
@@ -466,7 +460,7 @@ export default function LatestJobsPage() {
                                     const isUrgent = new Date(job.lastDate) <= new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
                                     return (
                                         <li key={job.id} className="border-b border-gray-100 pb-3 last:border-0">
-                                            <Link href={`/job/${job.id}`} className="hover:text-primary block group">
+                                            <Link href={`/jobs/${job.id}`} className="hover:text-primary block group">
                                                 <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2">
                                                     <div className="flex-1">
                                                         <div className="flex items-start gap-2 mb-1">
