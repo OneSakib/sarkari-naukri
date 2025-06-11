@@ -476,10 +476,14 @@ export default function JobsListPage() {
                                     </div>
                                     <div className={`flex gap-2 ${viewMode === "list" ? "flex-col sm:flex-row" : ""}`}>
                                         <Button size="sm" className="flex-1">
-                                            View Details
+                                            <Link href={`/jobs/${job.title.toLowerCase().replace(/\s+/g, "-")}`}>
+                                                View Details
+                                            </Link>
                                         </Button>
                                         <Button size="sm" variant="outline" className="flex-1">
-                                            Apply Now
+                                            <Link href={`/jobs/${job.title.toLowerCase().replace(/\s+/g, "-")}`} >
+                                                Apply Now
+                                            </Link>
                                         </Button>
                                     </div>
                                 </CardContent>
