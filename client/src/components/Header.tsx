@@ -20,7 +20,7 @@ export default function Header() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
     const navigationLinks = [
-        { href: "/latest-jobs", label: "Latest Jobs", icon: Briefcase },
+        { href: "/jobs", label: "Latest Jobs", icon: Briefcase },
         { href: "/admissions", label: "Admissions", icon: GraduationCap },
         { href: "/results", label: "Results", icon: Trophy },
         { href: "/answer-keys", label: "Answer Keys", icon: FileText },
