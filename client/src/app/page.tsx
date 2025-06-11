@@ -335,9 +335,11 @@ export default function HomePage() {
                       <span className="font-semibold text-red-600">{job.lastDate}</span>
                     </div>
                   </div>
-                  <Button className="w-full mt-4" size="sm">
-                    View Details & Apply
-                  </Button>
+                  <Link href={`/jobs/${job.id}`}>
+                    <Button className="w-full mt-4" size="sm" >
+                      View Details & Apply
+                    </Button>
+                  </Link>
                 </CardContent>
               </Card>
             ))}
