@@ -104,6 +104,71 @@ class DeleteTopbarView(View):
         messages.success(request, 'TopBar Deleted successful!')
         return redirect(reverse_lazy('superadmin:manage_topbar'))
 
+# Latest Jobs
+
+
+@method_decorator(superuser_required, name='dispatch')
+class ManageLatestJobs(View):
+    def get(self, request):
+        query = Q(category='latest_jobs')
+        page_obj = Posts.objects.filter(query)
+        context = {
+            'page_obj': page_obj
+        }
+        return render(request, 'superadmin/manage_latest_jobs.html', context)
+
+
+@method_decorator(superuser_required, name='dispatch')
+class AddLatestJobsView(View):
+    def get(self, request):
+        form = PostsForm()
+        context = {
+            'form': form
+        }
+        return render(request, 'superadmin/add_latest_jobs.html', context)
+
+    def post(self, request):
+        form = PostsForm(data=request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Latest Jobs Added successful!')
+            return redirect(reverse_lazy('superadmin:manage_latest_jobs'))        
+        context = {
+            'form': form
+        }
+        return render(request, 'superadmin/add_latest_jobs.html', context)
+
+
+@method_decorator(superuser_required, name='dispatch')
+class EditLatestJobsView(View):
+    def get(self, request, enc_id):
+        instance = Posts.objects.get(enc_id=enc_id)
+        form = PostsForm(instance=instance)
+        context = {
+            'form': form
+        }
+        return render(request, 'superadmin/edit_latest_jobs.html', context)
+
+    def post(self, request, enc_id):
+        instance = Posts.objects.get(enc_id=enc_id)
+        form = PostsForm(instance=instance, data=request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Latest Jobs Updated successful!')
+            return redirect(reverse_lazy('superadmin:manage_latest_jobs'))
+        context = {
+            'form': form
+        }
+        return render(request, 'superadmin/edit_latest_jobs.html', context)
+
+
+@method_decorator(superuser_required, name='dispatch')
+class DeleteLatestJobsView(View):
+    def get(self, request, enc_id):
+        Posts.objects.filter(enc_id=enc_id).delete()
+        messages.success(request, 'Latest Jobs Deleted successful!')
+        return redirect(reverse_lazy('superadmin:manage_latest_jobs'))
+
 # Results
 
 
@@ -233,70 +298,6 @@ class DeleteAdmitCardsView(View):
         Posts.objects.filter(enc_id=enc_id).delete()
         messages.success(request, 'Admit Cards Deleted successful!')
         return redirect(reverse_lazy('superadmin:manage_admit_cards'))
-# Latest Jobs
-
-
-@method_decorator(superuser_required, name='dispatch')
-class ManageLatestJobs(View):
-    def get(self, request):
-        query = Q(category='latest_jobs')
-        page_obj = Posts.objects.filter(query)
-        context = {
-            'page_obj': page_obj
-        }
-        return render(request, 'superadmin/manage_latest_jobs.html', context)
-
-
-@method_decorator(superuser_required, name='dispatch')
-class AddLatestJobsView(View):
-    def get(self, request):
-        form = PostsForm()
-        context = {
-            'form': form
-        }
-        return render(request, 'superadmin/add_latest_jobs.html', context)
-
-    def post(self, request):
-        form = PostsForm(data=request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Latest Jobs Added successful!')
-            return redirect(reverse_lazy('superadmin:manage_latest_jobs'))
-        context = {
-            'form': form
-        }
-        return render(request, 'superadmin/add_latest_jobs.html', context)
-
-
-@method_decorator(superuser_required, name='dispatch')
-class EditLatestJobsView(View):
-    def get(self, request, enc_id):
-        instance = Posts.objects.get(enc_id=enc_id)
-        form = PostsForm(instance=instance)
-        context = {
-            'form': form
-        }
-        return render(request, 'superadmin/edit_latest_jobs.html', context)
-
-    def post(self, request, enc_id):
-        instance = Posts.objects.get(enc_id=enc_id)
-        form = PostsForm(instance=instance, data=request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Latest Jobs Updated successful!')
-            return redirect(reverse_lazy('superadmin:manage_latest_jobs'))
-        context = {
-            'form': form
-        }
-        return render(request, 'superadmin/edit_latest_jobs.html', context)
-
-
-@method_decorator(superuser_required, name='dispatch')
-class DeleteLatestJobsView(View):
-    def get(self, request, enc_id):
-        Posts.objects.filter(enc_id=enc_id).delete()
-        messages.success(request, 'Latest Jobs Deleted successful!')
-        return redirect(reverse_lazy('superadmin:manage_latest_jobs'))
 
 
 # Answer Keys

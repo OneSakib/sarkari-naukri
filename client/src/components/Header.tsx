@@ -31,7 +31,7 @@ export default function Header() {
     ]
 
     return (
-        <header className="bg-gradient-to-r from-orange-600 to-red-600 text-white shadow-lg sticky top-0 z-50">
+        <header className="bg-gradient-to-r from-blue-600 to-red-600 text-white shadow-lg sticky top-0 z-50">
             <div className="container mx-auto px-3 sm:px-4 lg:px-6">
                 <div className="flex justify-between items-center py-3 sm:py-4">
                     {/* Logo */}

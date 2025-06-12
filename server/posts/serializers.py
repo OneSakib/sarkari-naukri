@@ -12,5 +12,5 @@ class TopBarSerializer(serializers.ModelSerializer):
 class PostsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Posts
-        fields = ['title', 'link']
+        fields = ['title']
         read_only_fields = ['id']

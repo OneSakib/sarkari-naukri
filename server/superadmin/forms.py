@@ -66,5 +66,5 @@ class CustomUserChangeForm(forms.ModelForm):
 
 class PostsForm(forms.ModelForm):
     class Meta:
-        fields = ['title', 'link', 'category']
+        fields = ['title', 'category', 'slug', 'short_info', 'content']
         model = Posts
