@@ -4,6 +4,7 @@ from .views import *
 app_name = 'posts'
 
 urlpatterns = [
+    path('desktop/', DesktopView.as_view(), name='desktop'),
     path('top-bar/', TopBarView.as_view(), name='top_bar'),
     path('latest-jobs/', LatestJobsView.as_view(), name='latest_jobs'),
     path('results/', ResultsView.as_view(), name='results'),

@@ -53,28 +53,3 @@
     </div>
   </div>
 {% endblock %}
-{% block script %}
-  <script>
-    function slugify(text) {
-      return text
-        .toString()
-        .toLowerCase()
-        .replace(/\s+/g, '-') // Replace spaces with -
-        .replace(/[^\w\-]+/g, '') // Remove all non-word chars
-        .replace(/\-\-+/g, '-') // Replace multiple - with single -
-        .replace(/^-+/, '') // Trim - from start of text
-        .replace(/-+$/, '') // Trim - from end of text
-    }
-    
-    document.addEventListener('DOMContentLoaded', function () {
-      const titleInput = document.getElementById('title')
-      const slugInput = document.getElementById('slug')
-    
-      titleInput.addEventListener('input', function () {
-        const slug = slugify(titleInput.value)
-        slugInput.value = slug
-      })
-      CKEDITOR.replace('content')
-    })
-  </script>
-{% endblock %}

@@ -12,9 +12,17 @@
           {% csrf_token %}
           <input type="hidden" name="category" value="results" />
           <div class="row">
+            <h5 class="text-decoration-underline">Post Details</h5>
             {% if form.non_field_errors %}
               <div class="alert alert-danger">{{ form.non_field_errors }}</div>
             {% endif %}
+            <div class="col-12 col-lg-6 mb-3">
+              <label for="slug" class="form-label">Slug</label>
+              <input type="text" name="slug" id="slug" class="form-control" value="{{ form.slug.value|default_if_none:'' }}" readonly />
+              {% for error in form.slug.errors %}
+                <div class="invalid-feedback">{{ error }}</div>
+              {% endfor %}
+            </div>
             <div class="col-12 col-lg-6 mb-3">
               <label for="title" class="form-label">Title</label>
               <input type="text" name="title" id="title" class="form-control" value="{{ form.title.value|default_if_none:'' }}" />
@@ -23,15 +31,22 @@
               {% endfor %}
             </div>
             <div class="col-12 col-lg-6 mb-3">
-              <label for="link" class="form-label">Link</label>
-              <input type="url" name="link" id="link" class="form-control" value="{{ form.link.value|default_if_none:'' }}" />
-              {% for error in form.link.errors %}
+              <label for="short_info" class="form-label">Short Info</label>
+              <textarea type="text" name="short_info" id="short_info" class="form-control">{{ form.short_info.value|default_if_none:'' }}</textarea>
+              {% for error in form.short_info.errors %}
                 <div class="invalid-feedback">{{ error }}</div>
               {% endfor %}
             </div>
-            <div class="col-12 col-lg-1">
-              <button class="btn btn-primary">Submit</button>
+            <div class="col-12 col-lg-12 mb-3">
+              <label for="content" class="form-label">Content</label>
+              <textarea type="text" name="content" id="content" class="form-control">{{ form.content.value|default_if_none:'' }}</textarea>
+              {% for error in form.content.errors %}
+                <div class="invalid-feedback">{{ error }}</div>
+              {% endfor %}
             </div>
+          </div>
+          <div class="col-12 col-lg-1">
+            <button class="btn btn-primary">Submit</button>
           </div>
         </form>
       </div>

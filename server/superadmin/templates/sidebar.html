@@ -23,14 +23,14 @@
           </a>
         </li>
         <!-- Dashboard -->
-        <li class="sidebar-item">
+        {% comment %} <li class="sidebar-item">
           <a class="sidebar-link justify-content-between" href="{% url 'superadmin:manage_topbar' %}" aria-expanded="false">
             <div class="d-flex align-items-center gap-3">
               <span class="d-flex"><i class="ti ti-aperture"></i></span>
               <span class="hide-menu">Top Bar</span>
             </div>
           </a>
-        </li>
+        </li> {% endcomment %}
         <!-- Latest Jobs -->
         <li class="sidebar-item">
           <a class="sidebar-link justify-content-between" href="{% url 'superadmin:manage_latest_jobs' %}" aria-expanded="false">

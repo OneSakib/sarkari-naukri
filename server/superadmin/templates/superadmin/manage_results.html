@@ -15,15 +15,15 @@
           <thead>
             <tr>
               <th>Title</th>
-              <th>Link</th>
+              <th>Short Info</th>
               <th>Action</th>
             </tr>
           </thead>
           <tbody>
             {% for post in page_obj %}
               <tr>
-                <td>{{ post.title }}</td>
-                <td>{{ post.link }}</td>
+                <td>{{ post.title|truncatechars:30 }}</td>
+                <td>{{ post.short_info|truncatechars:30 }}</td>
                 <td>
                   <a href="{% url 'superadmin:edit_results' post.enc_id %}" class="btn btn-primary"><i class="fa-solid fa-pencil me-2"></i>Edit</a>
                   <a href="{% url 'superadmin:delete_results' post.enc_id %}" class="btn btn-danger delete-btn" data-name="{{ state.value }}"><i class="fa-solid fa-trash me-2"></i>Delete</a>

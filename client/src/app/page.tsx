@@ -16,19 +16,32 @@ import {
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { getDesktop } from "@/services/api"
+import { Desktop } from "@/services/types"
 
-export default function Home() {
+export default async function Home() {
+  let desktop: Desktop[] = [];
+  try {
+    desktop = await getDesktop();
+    console.log("Desktop Data:", desktop);
+  }
+  catch (error) {
+    console.error("Error fetching desktop data:", error);
+  }
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-50 to-red-50">
       <div className="container mx-auto px-3 sm:px-4 lg:px-6 py-4 sm:py-8">
         {/* Top Alert */}
-        <Alert variant="destructive" className="mb-4 sm:mb-6 shadow-lg border-l-4 border-l-red-500">
-          <AlertCircle className="h-4 w-4" />
-          <AlertTitle className="text-sm sm:text-base font-semibold">Important Notice!</AlertTitle>
-          <AlertDescription className="text-xs sm:text-sm mt-1">
-            UPSC Civil Services 2024 Application deadline extended to June 15th. Apply now!
-          </AlertDescription>
-        </Alert>
+        {desktop && desktop.alerts && desktop.alerts.length > 0 && destop.alerts.map((alert, index) => (
+          <Alert variant="destructive" className="mb-4 sm:mb-6 shadow-lg border-l-4 border-l-red-500">
+            <AlertCircle className="h-4 w-4" />
+            <AlertTitle className="text-sm sm:text-base font-semibold">Important Notice!</AlertTitle>
+            <AlertDescription className="text-xs sm:text-sm mt-1">
+              UPSC Civil Services 2024 Application deadline extended to June 15th. Apply now!
+            </AlertDescription>
+          </Alert>
+        ))
+        }
 
         {/* Main Title */}
         <div className="text-center mb-6 sm:mb-8">
